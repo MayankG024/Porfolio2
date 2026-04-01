@@ -91,7 +91,7 @@ export default function HeroSection() {
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-btn-hover)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
-                INITIATE_CONTACT
+                ESTABLISH CONTACT
               </button>
               <button
                 className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
@@ -103,10 +103,10 @@ export default function HeroSection() {
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-cta-hover)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-cta-bg)")}
               >
-                GET_RESUME.PDF
+                MY WORK
               </button>
             </div>
-            
+
             <SocialButtons />
           </motion.div>
         </div>
@@ -116,7 +116,7 @@ export default function HeroSection() {
       </div>
 
       <div className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 flex flex-col items-end gap-5 z-50">
-        
+
         {/* Status Bar */}
         <div
           className="flex items-center gap-4 pointer-events-none"

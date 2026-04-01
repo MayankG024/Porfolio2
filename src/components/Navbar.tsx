@@ -201,7 +201,7 @@ export default function Navbar() {
           className="font-mono font-semibold tracking-[0.22em]"
           style={{ fontSize: "13px", color: "var(--theme-text-bold)" }}
         >
-          SYS.PORTFOLIO // MAYANK GUPTA
+           // MAYANK GUPTA
         </span>
       </div>
 

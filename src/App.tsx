@@ -3,6 +3,7 @@ import { ThemeProvider, useTheme } from "@/lib/ThemeContext";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import QuickStatsSection from "@/components/QuickStatsSection";
 import ModulesSection from "@/components/ModulesSection";
 import OutputSection from "@/components/OutputSection";
 import LogsSection from "@/components/LogsSection";
@@ -46,6 +47,8 @@ function AppContent() {
 
         <main>
           <HeroSection />
+
+          <QuickStatsSection />
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"

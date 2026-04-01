@@ -44,46 +44,61 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
       />
 
       <div
-        className="absolute left-0 top-0 -translate-x-1/2"
+        className="absolute left-0 top-6 -translate-x-1/2"
         style={{ width: "5px", height: "5px", background: "var(--theme-dot-timeline)" }}
       />
 
-      <div className="flex flex-wrap items-baseline gap-3 mb-1">
-        <h4 className="text-sm font-mono font-bold tracking-[0.05em]" style={{ color: "var(--theme-text-bold)" }}>
-          {exp.title}
-        </h4>
-      </div>
-
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
-          {exp.period}
-        </span>
-        <span style={{ color: "var(--theme-text-faint)" }}>//</span>
-        <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-dim)" }}>
-          {exp.company}
-        </span>
-      </div>
-
-      <p
-        className="text-xs font-mono leading-relaxed mb-4"
-        style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}
+      <div 
+        className="p-6 rounded-sm border transition-colors duration-300"
+        style={{ 
+          background: "rgba(10, 10, 10, 0.45)", 
+          backdropFilter: "blur(6px)",
+          borderColor: "var(--theme-border-faint)"
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(15, 15, 15, 0.65)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(10, 10, 10, 0.45)";
+        }}
       >
-        {exp.description}
-      </p>
+        <div className="flex flex-wrap items-baseline gap-3 mb-1">
+          <h4 className="text-sm font-mono font-bold tracking-[0.05em]" style={{ color: "var(--theme-text-bold)" }}>
+            {exp.title}
+          </h4>
+        </div>
 
-      <div className="flex flex-wrap gap-2">
-        {exp.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-[9px] font-mono tracking-[0.15em] px-2 py-1"
-            style={{
-              color: "var(--theme-text-dim)",
-              border: "1px solid var(--theme-border-faint)",
-            }}
-          >
-            [ {tag} ]
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
+            {exp.period}
           </span>
-        ))}
+          <span style={{ color: "var(--theme-text-faint)" }}>//</span>
+          <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-dim)" }}>
+            {exp.company}
+          </span>
+        </div>
+
+        <p
+          className="text-xs font-mono leading-relaxed mb-4"
+          style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}
+        >
+          {exp.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {exp.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[9px] font-mono tracking-[0.15em] px-2 py-1"
+              style={{
+                color: "var(--theme-text-dim)",
+                border: "1px solid var(--theme-border-faint)",
+              }}
+            >
+              [ {tag} ]
+            </span>
+          ))}
+        </div>
       </div>
     </motion.div>
   );

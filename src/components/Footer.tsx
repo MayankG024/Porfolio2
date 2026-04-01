@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="w-1.5 h-1.5" style={{ background: "var(--theme-logo-fill-footer)" }} />
           </div>
           <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
-            SYS.PORTFOLIO // J.DOE
+            Copyright @2026 Mayank Gupta. All rights reserved.
           </span>
         </div>
 
