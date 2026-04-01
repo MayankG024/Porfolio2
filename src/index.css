@@ -72,9 +72,9 @@
   --theme-footer-border: rgba(255, 255, 255, 0.07);
   --theme-corner: rgba(255, 255, 255, 0.4);
 
-  --theme-card-bg: rgba(0, 0, 0, 0.08);
-  --theme-card-bg-alpha: rgba(0, 0, 0, 0.40);
-  --theme-card-hover: #000000;
+  --theme-card-bg: rgba(255, 255, 255, 0.03); 
+  --theme-card-bg-alpha: rgba(255, 255, 255, 0.08);
+  --theme-card-hover: #090909;
 
   --theme-nav-bg: rgba(9, 9, 9, 0.88);
   --theme-selection-bg: rgba(255, 255, 255, 0.2);
@@ -144,9 +144,9 @@ html.light {
   --theme-footer-border: rgba(0, 0, 0, 0.08);
   --theme-corner: rgba(0, 0, 0, 0.4);
 
-  --theme-card-bg: rgba(180, 180, 180, 0.35);       /* translucent grey card */
-  --theme-card-bg-alpha: rgba(160, 160, 160, 0.45); /* slightly more opaque */
-  --theme-card-hover: rgba(120, 120, 120, 0.05);
+  --theme-card-bg: rgba(200, 200, 200, 0.35);       
+  --theme-card-bg-alpha: rgba(180, 180, 180, 0.50); 
+  --theme-card-hover: #ffffff;
 
   --theme-nav-bg: rgba(240, 240, 240, 0.92);
   --theme-selection-bg: rgba(0, 0, 0, 0.15);
@@ -311,9 +311,9 @@ html.light {
 /* Card hover transparency — outside layers for max specificity */
 .card-hover {
   background-color: var(--theme-card-bg) !important;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: background-color 0.3s ease !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 0.4s ease-out !important;
 }
 
 .card-hover:hover {
