@@ -310,14 +310,14 @@ html.light {
 
 /* Card hover transparency — outside layers for max specificity */
 .card-hover {
-  background: var(--theme-card-bg) !important;
+  background-color: var(--theme-card-bg) !important;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  transition: background 0.3s ease !important;
+  transition: background-color 0.3s ease !important;
 }
 
 .card-hover:hover {
-  background: var(--theme-card-hover) !important;
+  background-color: var(--theme-card-hover) !important;
 }
 
 /* Smooth scrollbar */
