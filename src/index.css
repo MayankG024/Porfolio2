@@ -72,8 +72,8 @@
   --theme-footer-border: rgba(255, 255, 255, 0.07);
   --theme-corner: rgba(255, 255, 255, 0.4);
 
-  --theme-card-bg: rgba(255, 255, 255, 0.03); 
-  --theme-card-bg-alpha: rgba(255, 255, 255, 0.08);
+  --theme-card-bg: rgba(255, 255, 255, 0.10); 
+  --theme-card-bg-alpha: rgba(255, 255, 255, 0.15);
   --theme-card-hover: #090909;
 
   --theme-nav-bg: rgba(9, 9, 9, 0.88);
@@ -144,8 +144,8 @@ html.light {
   --theme-footer-border: rgba(0, 0, 0, 0.08);
   --theme-corner: rgba(0, 0, 0, 0.4);
 
-  --theme-card-bg: rgba(200, 200, 200, 0.35);       
-  --theme-card-bg-alpha: rgba(180, 180, 180, 0.50); 
+  --theme-card-bg: rgba(200, 200, 200, 0.60);       
+  --theme-card-bg-alpha: rgba(180, 180, 180, 0.75); 
   --theme-card-hover: #ffffff;
 
   --theme-nav-bg: rgba(240, 240, 240, 0.92);
