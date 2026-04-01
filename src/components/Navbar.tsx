@@ -170,8 +170,10 @@ function ThemeToggleButton() {
 
 export default function Navbar() {
   useTheme();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleClick = (href: string) => {
+    setMobileMenuOpen(false); // close the menu when changing pages
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -199,7 +201,8 @@ export default function Navbar() {
         </div>
         <span
           className="font-mono font-semibold tracking-[0.22em]"
-          style={{ fontSize: "13px", color: "var(--theme-text-bold)" }}
+          style={{ fontSize: "13px", color: "var(--theme-text-bold)", cursor: "pointer" }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
            // MAYANK GUPTA
         </span>
@@ -237,14 +240,51 @@ export default function Navbar() {
       <div className="md:hidden flex items-center gap-3">
         <MusicToggleButton />
         <ThemeToggleButton />
-        <button className="transition-colors" style={{ color: "var(--theme-text-nav)" }}>
-          <svg width="18" height="14" viewBox="0 0 18 14" fill="currentColor">
-            <rect y="0" width="18" height="1.5" />
-            <rect y="6" width="18" height="1.5" />
-            <rect y="12" width="18" height="1.5" />
+        <NavIconButton
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          ariaLabel="Toggle mobile menu"
+          title="Toggle menu"
+        >
+          <svg width="18" height="14" viewBox="0 0 18 14" fill="currentColor" style={{ color: "var(--theme-text-nav)" }}>
+            <rect y={mobileMenuOpen ? "6" : "0"} width="18" height="1.5" className="transition-all duration-300" style={{ transform: mobileMenuOpen ? "rotate(45deg)" : "rotate(0)", transformOrigin: "center" }} />
+            <rect y="6" width="18" height="1.5" className={`transition-opacity duration-300 ${mobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
+            <rect y={mobileMenuOpen ? "6" : "12"} width="18" height="1.5" className="transition-all duration-300" style={{ transform: mobileMenuOpen ? "rotate(-45deg)" : "rotate(0)", transformOrigin: "center" }} />
           </svg>
-        </button>
+        </NavIconButton>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute top-full left-0 right-0 border-b flex flex-col md:hidden"
+            style={{ 
+              background: "var(--theme-nav-bg)", 
+              borderColor: "var(--theme-border-nav)",
+              backdropFilter: "blur(14px)",
+              WebkitBackdropFilter: "blur(14px)",
+            }}
+          >
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleClick(item.href)}
+                className="py-4 text-left px-6 font-mono tracking-[0.2em] transition-colors"
+                style={{ 
+                  fontSize: "12px", 
+                  color: "var(--theme-text-nav)",
+                  borderTop: "1px solid var(--theme-border-faint)"
+                }}
+              >
+                {item.label.trim()}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }
