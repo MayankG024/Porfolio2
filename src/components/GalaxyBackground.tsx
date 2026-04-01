@@ -413,7 +413,7 @@ export default function GalaxyBackground({ scrollY, mouseX, mouseY, theme }: Gal
     <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
       <Canvas
         camera={{ position: [0, 0, 7.5], fov: 58 }}
-        gl={{ antialias: false, alpha: true, failIfMajorPerformanceCaveat: false }}
+        gl={{ antialias: false, alpha: true, preserveDrawingBuffer: true, failIfMajorPerformanceCaveat: false }}
         style={{ position: "absolute", inset: 0, background: "transparent" }}
         fallback={<FallbackBackground />}
       >
