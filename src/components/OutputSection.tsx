@@ -4,41 +4,59 @@ import { useRef } from "react";
 
 const projects = [
   {
-    id: "001_NEBULA",
-    category: "VISUALIZATION",
-    title: "Nebula Metrics",
-    description: "A high-performance WebGL dashboard for visualizing real-time container metrics. Built to handle million-point datasets with zero frame drops utilizing custom shaders.",
-    tags: ["THREE.JS", "REACT", "WEBSOCKETS"],
-    link: "View_Deployment",
-    href: "#",
+    id: "001_ETHI",
+    category: "CRM / HEALTH_TECH",
+    title: "Ethi CRM",
+    description: "End-to-End CRM tool for clinic and patient management with standout features like medical feeds. Currently being used by multiple Nutritionists.",
+    tags: ["PUBMED_API", "POSTGRESQL", "RAILWAY", "REDIS"],
+    github: "https://github.com/MayankG024/Ethi",
+    live: "https://ethi.site",
   },
   {
-    id: "002_VOID",
-    category: "SYSTEM_ARCHITECTURE",
-    title: "Void Engine",
-    description: "Headless CMS architecture tailored for brutalist portfolio sites. Features a Git-backed content resolution system and heavily cached Edge deployment pipeline.",
-    tags: ["NEXT.JS", "RUST", "GRAPHQL"],
-    link: "View_Repository",
-    href: "#",
+    id: "002_MUSIGO",
+    category: "AI_PLATFORM",
+    title: "Musigo — AI Music Discovery",
+    description: "Built natural-language music discovery using AI pipelines. Implemented semantic vector search and personalization.",
+    tags: ["FASTAPI", "RAG", "LANGCHAIN", "CHROMADB"],
+    github: "https://github.com/MayankG024/Musigo",
+    live: "",
   },
   {
-    id: "003_PULSAR",
-    category: "AUDIO_INTERFACE",
-    title: "Pulsar Synth",
-    description: "Web Audio API based modular synthesizer interface. Design focused on skeuomorphic wireframes and exact control mapping mimicking physical hardware.",
-    tags: ["WEB_AUDIO", "CANVAS_API", "ZUSTAND"],
-    link: "Launch_Application",
-    href: "#",
-  },
-  {
-    id: "004_HORIZON",
+    id: "003_BLUENCORE",
     category: "E_COMMERCE",
-    title: "Event Horizon",
-    description: "Minimalist, high-conversion storefront framework. Stripped away all non-essential UI to create a pure, content-first purchasing experience.",
-    tags: ["SHOPIFY_API", "TAILWIND", "REMIX"],
-    link: "View_Case_Study",
-    href: "#",
+    title: "Bluencore Store",
+    description: "Educational board and strategy games store. Shopify build end to end with in-depth theme and app customizations through Shopify Liquid files and CLI tool.",
+    tags: ["SHOPIFY_LIQUID", "CUSTOM_APP", "WEB"],
+    github: "",
+    live: "https://bluencore-wholesale.com/",
   },
+  {
+    id: "004_HEALTHYSWAP",
+    category: "AI_NUTRITION",
+    title: "Healthyswap",
+    description: "An AI Driven Meal improvement and nutritional Website.",
+    tags: ["FRAMER_MOTION", "TYPESCRIPT", "OPENAI", "CHROMADB"],
+    github: "https://github.com/MayankG024/Healthyswap",
+    live: "https://maynk.me/Healthyswap",
+  },
+  {
+    id: "005_PORTFOLIO",
+    category: "WEB_DEVELOPMENT",
+    title: "Retro Portfolio",
+    description: "A retro gaming-inspired portfolio website built with React, TypeScript, and Tailwind CSS with my blogs and knowledge stash!",
+    tags: ["REACT", "TYPESCRIPT", "TAILWIND"],
+    github: "https://github.com/MayankG024/Portfolio-website",
+    live: "https://mynk.site",
+  },
+  {
+    id: "006_WORKLIFE",
+    category: "WEB_APP",
+    title: "Worklife Desks",
+    description: "A modern workplace management application.",
+    tags: ["VITE", "ZUSTAND", "SONNER", "RESEND"],
+    github: "https://github.com/MayankG024/worklife-desks",
+    live: "",
+  }
 ];
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
@@ -51,7 +69,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="terminal-border p-6 transition-all duration-300 group card-hover"
+      className="terminal-border p-6 transition-all duration-300 group card-hover flex flex-col"
     >
       <div className="flex items-center justify-between mb-4">
         <span className="text-[9px] font-mono tracking-[0.25em]" style={{ color: "var(--theme-text-label)" }}>
@@ -91,14 +109,32 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         ))}
       </div>
 
-      <a
-        href={project.href}
-        className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] group-hover:gap-3 transition-all duration-200"
-        style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
-      >
-        {project.link}
-        <span className="transition-transform group-hover:translate-x-1">→</span>
-      </a>
+      <div className="flex items-center gap-6 mt-auto">
+        {project.live && (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] group-hover:gap-3 transition-all duration-200"
+            style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
+          >
+            Live_Site
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        )}
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] group-hover:gap-3 transition-all duration-200"
+            style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
+          >
+            View_Repository
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        )}
+      </div>
     </motion.div>
   );
 }
