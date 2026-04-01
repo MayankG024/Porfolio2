@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { ThemeProvider, useTheme } from "@/lib/ThemeContext";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -10,10 +10,11 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
-export default function App() {
+function AppContent() {
   const [scrollY, setScrollY] = useState(0);
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -32,8 +33,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen" style={{ background: "#090909" }}>
-      <GalaxyBackground scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} />
+    <div className="relative min-h-screen" style={{ background: "var(--theme-bg)" }}>
+      <GalaxyBackground scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} theme={theme} />
 
       <div
         className="fixed inset-0 z-[1] pointer-events-none grid-overlay"
@@ -48,35 +49,35 @@ export default function App() {
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "rgba(255,255,255,0.06)" }}
+            style={{ height: "1px", background: "var(--theme-divider)" }}
           />
 
           <ModulesSection />
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "rgba(255,255,255,0.06)" }}
+            style={{ height: "1px", background: "var(--theme-divider)" }}
           />
 
           <OutputSection />
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "rgba(255,255,255,0.06)" }}
+            style={{ height: "1px", background: "var(--theme-divider)" }}
           />
 
           <LogsSection />
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "rgba(255,255,255,0.06)" }}
+            style={{ height: "1px", background: "var(--theme-divider)" }}
           />
 
           <TestimonialsSection />
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "rgba(255,255,255,0.06)" }}
+            style={{ height: "1px", background: "var(--theme-divider)" }}
           />
 
           <ContactSection />
@@ -85,5 +86,13 @@ export default function App() {
         <Footer />
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }

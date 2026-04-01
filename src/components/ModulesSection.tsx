@@ -23,32 +23,36 @@ function ModuleCard({ mod, index }: { mod: typeof modules[0]; index: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group relative terminal-border p-4 bg-black hover:bg-white/5 transition-all duration-300 cursor-default"
+      className="group relative terminal-border p-4 transition-all duration-300 cursor-default"
+      style={{ background: "var(--theme-card-bg)" }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-card-hover)")}
+      onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-card-bg)")}
     >
       <div className="flex items-start justify-between mb-6">
         <div>
-          <div className="text-sm font-mono font-bold text-white tracking-[0.1em] mb-1">
+          <div className="text-sm font-mono font-bold tracking-[0.1em] mb-1" style={{ color: "var(--theme-text-bold)" }}>
             {mod.name}
           </div>
-          <div className="text-[10px] font-mono tracking-[0.15em]" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <div className="text-[10px] font-mono tracking-[0.15em]" style={{ color: "var(--theme-text-label)" }}>
             {mod.sub}
           </div>
         </div>
         <div
-          className="text-lg font-mono group-hover:text-white transition-colors"
-          style={{ color: "rgba(255,255,255,0.25)" }}
+          className="text-lg font-mono group-hover:opacity-100 transition-opacity"
+          style={{ color: "var(--theme-text-faint)" }}
         >
           {mod.icon}
         </div>
       </div>
 
       <div
-        className="absolute bottom-0 left-0 h-px bg-white/20 group-hover:bg-white/50 transition-all duration-500"
-        style={{ width: "0%", animation: "none" }}
+        className="absolute bottom-0 left-0 h-px transition-all duration-500"
+        style={{ width: "0%", background: "var(--theme-progress-bar)" }}
       />
 
       <motion.div
-        className="absolute bottom-0 left-0 h-px bg-white/30"
+        className="absolute bottom-0 left-0 h-px"
+        style={{ background: "var(--theme-progress-bar)" }}
         initial={{ width: "0%" }}
         animate={isInView ? { width: "30%" } : {}}
         transition={{ duration: 0.8, delay: index * 0.05 + 0.3 }}
@@ -71,8 +75,8 @@ export default function ModulesSection() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
-          <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono">SEQ_02 // SYS.MODULES</span>
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_02 // SYS.MODULES</span>
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">

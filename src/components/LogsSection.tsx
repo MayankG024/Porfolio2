@@ -40,33 +40,33 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
     >
       <div
         className="absolute left-0 top-0 bottom-0 w-px"
-        style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0.02))" }}
+        style={{ background: `linear-gradient(to bottom, var(--theme-timeline-start), var(--theme-timeline-end))` }}
       />
 
       <div
-        className="absolute left-0 top-0 w-2 h-2 -translate-x-1/2 bg-white"
-        style={{ width: "5px", height: "5px", background: "rgba(255,255,255,0.7)" }}
+        className="absolute left-0 top-0 -translate-x-1/2"
+        style={{ width: "5px", height: "5px", background: "var(--theme-dot-timeline)" }}
       />
 
       <div className="flex flex-wrap items-baseline gap-3 mb-1">
-        <h4 className="text-sm font-mono font-bold text-white tracking-[0.05em]">
+        <h4 className="text-sm font-mono font-bold tracking-[0.05em]" style={{ color: "var(--theme-text-bold)" }}>
           {exp.title}
         </h4>
       </div>
 
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
           {exp.period}
         </span>
-        <span style={{ color: "rgba(255,255,255,0.2)" }}>//</span>
-        <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <span style={{ color: "var(--theme-text-faint)" }}>//</span>
+        <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-dim)" }}>
           {exp.company}
         </span>
       </div>
 
       <p
         className="text-xs font-mono leading-relaxed mb-4"
-        style={{ color: "rgba(255,255,255,0.45)", fontSize: "12px" }}
+        style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}
       >
         {exp.description}
       </p>
@@ -77,8 +77,8 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
             key={tag}
             className="text-[9px] font-mono tracking-[0.15em] px-2 py-1"
             style={{
-              color: "rgba(255,255,255,0.4)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              color: "var(--theme-text-dim)",
+              border: "1px solid var(--theme-border-faint)",
             }}
           >
             [ {tag} ]
@@ -103,8 +103,8 @@ export default function LogsSection() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
-          <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono">SEQ_04 // SYS.LOGS</span>
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_04 // SYS.LOGS</span>
         </motion.div>
 
         <div className="max-w-3xl">

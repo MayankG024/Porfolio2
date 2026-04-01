@@ -51,27 +51,30 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="terminal-border p-6 bg-black hover:bg-white/[0.03] transition-all duration-300 group"
+      className="terminal-border p-6 transition-all duration-300 group"
+      style={{ background: "var(--theme-card-bg)" }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-card-hover)")}
+      onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-card-bg)")}
     >
       <div className="flex items-center justify-between mb-4">
-        <span className="text-[9px] font-mono tracking-[0.25em]" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <span className="text-[9px] font-mono tracking-[0.25em]" style={{ color: "var(--theme-text-label)" }}>
           PRJ_ID: {project.id}
         </span>
-        <span className="text-[9px] font-mono tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.25)" }}>
+        <span className="text-[9px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-faint)" }}>
           {project.category}
         </span>
       </div>
 
       <h3
-        className="font-mono font-bold text-white mb-3 tracking-tight"
-        style={{ fontSize: "clamp(1rem, 2.5vw, 1.3rem)" }}
+        className="font-mono font-bold mb-3 tracking-tight"
+        style={{ fontSize: "clamp(1rem, 2.5vw, 1.3rem)", color: "var(--theme-text-bold)" }}
       >
         {project.title}
       </h3>
 
       <p
         className="text-xs font-mono leading-relaxed mb-6"
-        style={{ color: "rgba(255,255,255,0.45)", fontSize: "12px" }}
+        style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}
       >
         {project.description}
       </p>
@@ -82,8 +85,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             key={tag}
             className="text-[9px] font-mono tracking-[0.15em] px-2 py-1"
             style={{
-              color: "rgba(255,255,255,0.5)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              color: "var(--theme-text-link)",
+              border: "1px solid var(--theme-border-tag)",
             }}
           >
             {tag}
@@ -93,8 +96,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
       <a
         href={project.href}
-        className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] text-white group-hover:gap-3 transition-all duration-200"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.3)" }}
+        className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] group-hover:gap-3 transition-all duration-200"
+        style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
       >
         {project.link}
         <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -117,8 +120,8 @@ export default function OutputSection() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
-          <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono">SEQ_03 // SYS.OUTPUT</span>
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_03 // SYS.OUTPUT</span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -30,23 +30,23 @@ function TestimonialCard({ testimonial, index }: { testimonial: typeof testimoni
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.15 }}
-      className="terminal-border p-6 bg-black/40"
-      style={{ backdropFilter: "blur(4px)" }}
+      className="terminal-border p-6"
+      style={{ background: "var(--theme-card-bg)" }}
     >
-      <div className="mb-4" style={{ color: "rgba(255,255,255,0.15)", fontSize: "2rem", fontFamily: "serif", lineHeight: 1 }}>
+      <div className="mb-4" style={{ color: "var(--theme-quote-mark)", fontSize: "2rem", fontFamily: "serif", lineHeight: 1 }}>
         "
       </div>
       <p
         className="text-xs font-mono leading-relaxed mb-6 italic"
-        style={{ color: "rgba(255,255,255,0.55)", fontSize: "12px" }}
+        style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}
       >
         "{testimonial.quote}"
       </p>
       <div>
-        <div className="text-xs font-mono font-bold text-white tracking-[0.1em]">
+        <div className="text-xs font-mono font-bold tracking-[0.1em]" style={{ color: "var(--theme-text-bold)" }}>
           {testimonial.author}
         </div>
-        <div className="text-[10px] font-mono tracking-[0.2em] mt-1" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <div className="text-[10px] font-mono tracking-[0.2em] mt-1" style={{ color: "var(--theme-text-label)" }}>
           {testimonial.role}
         </div>
       </div>
@@ -68,8 +68,8 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
-          <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono">SEQ_05 // SYS.EVAL</span>
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_05 // SYS.EVAL</span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

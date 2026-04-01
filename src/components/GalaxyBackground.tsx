@@ -6,9 +6,10 @@ interface GalaxyProps {
   scrollY: number;
   mouseX: number;
   mouseY: number;
+  theme: "dark" | "light";
 }
 
-function GalaxyParticles({ scrollY, mouseX, mouseY }: GalaxyProps) {
+function GalaxyParticles({ scrollY, mouseX, mouseY, theme }: GalaxyProps) {
   const groupRef = useRef<THREE.Group>(null!);
 
   const CORE_COUNT    = 1400;
@@ -73,30 +74,51 @@ function GalaxyParticles({ scrollY, mouseX, mouseY }: GalaxyProps) {
   }, []);
 
   const material = useMemo(() => new THREE.ShaderMaterial({
+    uniforms: {
+      uColorR: { value: 1.0 },
+      uColorG: { value: 1.0 },
+      uColorB: { value: 1.0 },
+      uSizeMult: { value: 1.3 },
+    },
     vertexShader: `
+      uniform float uSizeMult;
       attribute float aSize;
       attribute float aAlpha;
       varying float vAlpha;
       void main() {
         vAlpha = aAlpha;
         vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = aSize;
+        gl_PointSize = aSize * uSizeMult;
         gl_Position  = projectionMatrix * mvPos;
       }
     `,
     fragmentShader: `
+      uniform float uColorR;
+      uniform float uColorG;
+      uniform float uColorB;
       varying float vAlpha;
       void main() {
         vec2  uv   = gl_PointCoord - 0.5;
         float dist = length(uv);
         if (dist > 0.5) discard;
-        gl_FragColor = vec4(1.0, 1.0, 1.0, vAlpha);
+        gl_FragColor = vec4(uColorR, uColorG, uColorB, vAlpha);
       }
     `,
     transparent: true,
     depthWrite:  false,
     blending:    THREE.NormalBlending,
   }), []);
+
+  // Update particle color and size based on theme
+  useEffect(() => {
+    if (material.uniforms) {
+      const isLight = theme === "light";
+      material.uniforms.uColorR.value = isLight ? 0.0 : 1.0;
+      material.uniforms.uColorG.value = isLight ? 0.0 : 1.0;
+      material.uniforms.uColorB.value = isLight ? 0.0 : 1.0;
+      material.uniforms.uSizeMult.value = isLight ? 1.8 : 1.3;
+    }
+  }, [theme, material]);
 
   const geometry = useMemo(() => {
     const geo = new THREE.BufferGeometry();
@@ -117,11 +139,10 @@ function GalaxyParticles({ scrollY, mouseX, mouseY }: GalaxyProps) {
     elapsed += delta;
 
     // ── Cursor interaction: pronounced tilt that follows the mouse ──
-    // Range: ±0.28 rad on Y, ±0.18 rad on X — clearly visible
     const targetRotY = elapsed * 0.018 + mouseX * 0.28;
     const targetRotX = BASE_TILT + mouseY * 0.18;
 
-    // Fast lerp so cursor feel is responsive (0.06 vs old 0.014)
+    // Fast lerp so cursor feel is responsive
     smoothRotY.current += (targetRotY - smoothRotY.current) * 0.06;
     smoothRotX.current += (targetRotX - smoothRotX.current) * 0.06;
 
@@ -133,7 +154,7 @@ function GalaxyParticles({ scrollY, mouseX, mouseY }: GalaxyProps) {
     const targetY = -drift * 1.2;
     groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.08;
 
-    const targetScale = Math.max(0.80, 1.44 - drift * 0.18); // starts at 1.44 (+44% total)
+    const targetScale = Math.max(0.80, 1.44 - drift * 0.18);
     groupRef.current.scale.x += (targetScale - groupRef.current.scale.x) * 0.08;
     groupRef.current.scale.y += (targetScale - groupRef.current.scale.y) * 0.08;
     groupRef.current.scale.z += (targetScale - groupRef.current.scale.z) * 0.08;
@@ -148,11 +169,11 @@ function GalaxyParticles({ scrollY, mouseX, mouseY }: GalaxyProps) {
 
 function FallbackBackground() {
   return (
-    <div style={{ position: "fixed", inset: 0, background: "#090909", pointerEvents: "none" }} />
+    <div style={{ position: "fixed", inset: 0, background: "var(--theme-bg)", pointerEvents: "none" }} />
   );
 }
 
-export default function GalaxyBackground({ scrollY, mouseX, mouseY }: GalaxyProps) {
+export default function GalaxyBackground({ scrollY, mouseX, mouseY, theme }: GalaxyProps) {
   const [webglFailed, setWebglFailed] = useState(false);
 
   useEffect(() => {
@@ -174,16 +195,16 @@ export default function GalaxyBackground({ scrollY, mouseX, mouseY }: GalaxyProp
         style={{ position: "absolute", inset: 0, background: "transparent" }}
         fallback={<FallbackBackground />}
       >
-        <GalaxyParticles scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} />
+        <GalaxyParticles scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} theme={theme} />
       </Canvas>
 
-      {/* Soft edge vignette — text stays readable */}
+      {/* Soft edge vignette — uses theme vars */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse 75% 60% at 60% 52%, transparent 25%, rgba(9,9,9,0.45) 65%, rgba(9,9,9,0.82) 100%)",
+            `radial-gradient(ellipse 75% 60% at 60% 52%, transparent 25%, var(--theme-vignette) 65%, var(--theme-vignette-edge) 100%)`,
           pointerEvents: "none",
         }}
       />

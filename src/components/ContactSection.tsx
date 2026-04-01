@@ -23,8 +23,8 @@ export default function ContactSection() {
           transition={{ duration: 0.5 }}
           className="flex items-center gap-3 mb-12"
         >
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60" />
-          <span className="text-[10px] tracking-[0.3em] text-white/40 font-mono">SEQ_06 // SYS.CONNECT</span>
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_06 // SYS.CONNECT</span>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -34,14 +34,14 @@ export default function ContactSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <h2
-              className="font-mono font-black text-white leading-[0.95] mb-6 uppercase tracking-tight"
-              style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}
+              className="font-mono font-black leading-[0.95] mb-6 uppercase tracking-tight"
+              style={{ fontSize: "clamp(2rem, 6vw, 4rem)", color: "var(--theme-text-bold)" }}
             >
               Establish
               <br />
               Contact_
             </h2>
-            <p className="text-xs font-mono leading-relaxed mb-8 max-w-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <p className="text-xs font-mono leading-relaxed mb-8 max-w-sm" style={{ color: "var(--theme-text-muted)" }}>
               Open to new projects and collaborations. Reach out if you have
               an interesting problem that needs brutal engineering.
             </p>
@@ -53,11 +53,11 @@ export default function ContactSection() {
                 { label: "LOCATION", value: "SECTOR_7G, NEW_YORK" },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-4">
-                  <span className="text-[10px] font-mono tracking-[0.2em] w-20" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <span className="text-[10px] font-mono tracking-[0.2em] w-20" style={{ color: "var(--theme-text-label)" }}>
                     {item.label}
                   </span>
-                  <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
-                  <span className="text-[11px] font-mono tracking-[0.1em]" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <div className="flex-1 h-px" style={{ background: "var(--theme-border-faint)" }} />
+                  <span className="text-[11px] font-mono tracking-[0.1em]" style={{ color: "var(--theme-text-mid)" }}>
                     {item.value}
                   </span>
                 </div>
@@ -69,13 +69,13 @@ export default function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="terminal-border p-6 bg-black/40"
-            style={{ backdropFilter: "blur(4px)" }}
+            className="terminal-border p-6"
+            style={{ background: "var(--theme-card-bg-alpha)", backdropFilter: "blur(4px)" }}
           >
             {!submitted ? (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-mono tracking-[0.2em] block mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <label className="text-[10px] font-mono tracking-[0.2em] block mb-2" style={{ color: "var(--theme-text-label)" }}>
                     HANDLE
                   </label>
                   <input
@@ -83,13 +83,18 @@ export default function ContactSection() {
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full bg-transparent border px-3 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-white/40 transition-colors"
-                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                    className="w-full bg-transparent border px-3 py-2.5 text-xs font-mono focus:outline-none transition-colors"
+                    style={{
+                      borderColor: "var(--theme-border)",
+                      color: "var(--theme-text-bold)",
+                    }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = "var(--theme-input-focus)")}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = "var(--theme-border)")}
                     placeholder="IDENTIFIER"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono tracking-[0.2em] block mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <label className="text-[10px] font-mono tracking-[0.2em] block mb-2" style={{ color: "var(--theme-text-label)" }}>
                     COMM_CHANNEL
                   </label>
                   <input
@@ -97,13 +102,18 @@ export default function ContactSection() {
                     required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full bg-transparent border px-3 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-white/40 transition-colors"
-                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                    className="w-full bg-transparent border px-3 py-2.5 text-xs font-mono focus:outline-none transition-colors"
+                    style={{
+                      borderColor: "var(--theme-border)",
+                      color: "var(--theme-text-bold)",
+                    }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = "var(--theme-input-focus)")}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = "var(--theme-border)")}
                     placeholder="EMAIL_ADDRESS"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-mono tracking-[0.2em] block mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  <label className="text-[10px] font-mono tracking-[0.2em] block mb-2" style={{ color: "var(--theme-text-label)" }}>
                     MESSAGE_PAYLOAD
                   </label>
                   <textarea
@@ -111,14 +121,25 @@ export default function ContactSection() {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     rows={5}
-                    className="w-full bg-transparent border px-3 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-white/40 transition-colors resize-none"
-                    style={{ borderColor: "rgba(255,255,255,0.15)" }}
+                    className="w-full bg-transparent border px-3 py-2.5 text-xs font-mono focus:outline-none transition-colors resize-none"
+                    style={{
+                      borderColor: "var(--theme-border)",
+                      color: "var(--theme-text-bold)",
+                    }}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = "var(--theme-input-focus)")}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = "var(--theme-border)")}
                     placeholder="DESCRIBE_OBJECTIVE..."
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full py-3 font-mono text-xs tracking-[0.2em] text-black bg-white hover:bg-white/90 transition-colors"
+                  className="w-full py-3 font-mono text-xs tracking-[0.2em] transition-colors"
+                  style={{
+                    color: "var(--theme-cta-fg)",
+                    background: "var(--theme-cta-bg)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-cta-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-cta-bg)")}
                 >
                   TRANSMIT_MESSAGE
                 </button>
@@ -126,8 +147,8 @@ export default function ContactSection() {
             ) : (
               <div className="flex flex-col items-center justify-center h-full py-12 text-center">
                 <div className="w-2 h-2 rounded-full bg-green-400 mb-4" style={{ boxShadow: "0 0 10px rgba(74,222,128,0.8)" }} />
-                <div className="text-sm font-mono font-bold text-white mb-2">TRANSMISSION_RECEIVED</div>
-                <div className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <div className="text-sm font-mono font-bold mb-2" style={{ color: "var(--theme-text-bold)" }}>TRANSMISSION_RECEIVED</div>
+                <div className="text-[10px] font-mono" style={{ color: "var(--theme-text-dim)" }}>
                   Response will follow within 24_HOURS
                 </div>
               </div>
