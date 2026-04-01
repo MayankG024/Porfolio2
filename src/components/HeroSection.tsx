@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import SocialButtons from "./SocialButtons";
 
 export default function HeroSection() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -76,33 +77,37 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-wrap gap-3"
+            className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-12 w-full lg:w-[calc(200%+5rem)] mb-10"
           >
-            <button
-              onClick={handleContact}
-              className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
-              style={{
-                letterSpacing: "0.1em",
-                color: "var(--theme-text-bold)",
-                border: "1px solid var(--theme-btn-border)",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-btn-hover)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-            >
-              INITIATE_CONTACT
-            </button>
-            <button
-              className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
-              style={{
-                letterSpacing: "0.1em",
-                color: "var(--theme-cta-fg)",
-                background: "var(--theme-cta-bg)",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-cta-hover)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-cta-bg)")}
-            >
-              GET_RESUME.PDF
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleContact}
+                className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
+                style={{
+                  letterSpacing: "0.1em",
+                  color: "var(--theme-text-bold)",
+                  border: "1px solid var(--theme-btn-border)",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-btn-hover)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              >
+                INITIATE_CONTACT
+              </button>
+              <button
+                className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
+                style={{
+                  letterSpacing: "0.1em",
+                  color: "var(--theme-cta-fg)",
+                  background: "var(--theme-cta-bg)",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-cta-hover)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-cta-bg)")}
+              >
+                GET_RESUME.PDF
+              </button>
+            </div>
+            
+            <SocialButtons />
           </motion.div>
         </div>
 
@@ -110,18 +115,22 @@ export default function HeroSection() {
         <div className="w-full lg:w-auto" aria-hidden="true"></div>
       </div>
 
-      <div
-        className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 flex items-center gap-4 z-50 pointer-events-none"
-        style={{ opacity: 0.6 }}
-      >
-        <div className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_X: {mousePos.x.toString().padStart(4, '0')}</div>
-        <div className="w-px h-3" style={{ background: "var(--theme-text-label)" }} />
-        <div className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_Y: {mousePos.y.toString().padStart(4, '0')}</div>
-        <div className="w-px h-3" style={{ background: "var(--theme-text-label)" }} />
-        <div className="text-[9px] tracking-[0.3em] font-mono flex items-center gap-2" style={{ color: "var(--theme-text-bold)" }}>
-          SYS_STATUS:
-          <span className="w-1.5 h-1.5 rounded-full bg-green-500 blink block" style={{ boxShadow: "0 0 6px rgba(74,222,128,0.8)" }}></span>
-          ACTIVE
+      <div className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 flex flex-col items-end gap-5 z-50">
+        
+        {/* Status Bar */}
+        <div
+          className="flex items-center gap-4 pointer-events-none"
+          style={{ opacity: 0.6 }}
+        >
+          <div className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_X: {mousePos.x.toString().padStart(4, '0')}</div>
+          <div className="w-px h-3" style={{ background: "var(--theme-text-label)" }} />
+          <div className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_Y: {mousePos.y.toString().padStart(4, '0')}</div>
+          <div className="w-px h-3" style={{ background: "var(--theme-text-label)" }} />
+          <div className="text-[9px] tracking-[0.3em] font-mono flex items-center gap-2" style={{ color: "var(--theme-text-bold)" }}>
+            SYS_STATUS:
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 blink block" style={{ boxShadow: "0 0 6px rgba(74,222,128,0.8)" }}></span>
+            ACTIVE
+          </div>
         </div>
       </div>
     </section>

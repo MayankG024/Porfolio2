@@ -104,7 +104,7 @@ export default function LogsSection() {
           className="flex items-center gap-3 mb-12"
         >
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
-          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_04 // SYS.LOGS</span>
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_04 // SYS.EXPERIENCE</span>
         </motion.div>
 
         <div className="max-w-3xl">

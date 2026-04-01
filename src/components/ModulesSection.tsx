@@ -1,62 +1,161 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 
-const modules = [
-  { name: "TYPESCRIPT", sub: "V.5.0+ // CORE", icon: "{ }" },
-  { name: "REACT.JS", sub: "DOM // UI_LAYER", icon: "◎" },
-  { name: "NODE.JS", sub: "RUNTIME // ENV", icon: "⬡" },
-  { name: "THREE.JS", sub: "WEBGL // RENDER", icon: "△" },
-  { name: "RUST", sub: "SYSTEMS // WASM", icon: "⬛" },
-  { name: "POSTGRES", sub: "DATA // STORAGE", icon: "▣" },
-  { name: "DOCKER", sub: "CONTAINERS // OPS", icon: "⧫" },
-  { name: "FIGMA", sub: "DESIGN // PROTO", icon: "◈" },
+/* ── Brand icons (Simple Icons via react-icons) ── */
+import {
+  SiTypescript, SiReact, SiNextdotjs, SiTailwindcss, SiFramer, SiThreedotjs,
+  SiNodedotjs, SiExpress, SiPostgresql, SiSupabase, SiGraphql,
+  SiGithub, SiPostman, SiFigma, SiShopify, SiOpenai,
+  SiDocker, SiKubernetes, SiGithubactions, SiNginx, SiSentry,
+} from "react-icons/si";
+
+/* ── Generic icons (lucide — already installed) ── */
+import { Paintbrush, Globe, Cpu, Cloud, Code2 } from "lucide-react";
+
+/* ── Icon map keyed by skill name ── */
+const iconMap: Record<string, ReactNode> = {
+  // Frontend
+  "TypeScript":               <SiTypescript />,
+  "React":                    <SiReact />,
+  "Next.js":                  <SiNextdotjs />,
+  "Tailwind CSS":             <SiTailwindcss />,
+  "Framer Motion":            <SiFramer />,
+  "UI/UX Design Principles":  <Paintbrush size={15} strokeWidth={1.5} />,
+  "Three.js / WebGL":         <SiThreedotjs />,
+
+  // Backend
+  "Node.js":                  <SiNodedotjs />,
+  "Express.js":               <SiExpress />,
+  "PostgreSQL":               <SiPostgresql />,
+  "Supabase":                 <SiSupabase />,
+  "GraphQL APIs":             <SiGraphql />,
+  "REST API Design":          <Globe size={15} strokeWidth={1.5} />,
+
+  // Tools
+  "Git & GitHub":                     <SiGithub />,
+  "Postman":                          <SiPostman />,
+  "Figma (UI/UX)":                    <SiFigma />,
+  "Shopify":                          <SiShopify />,
+  "MCP (Model Context Protocol)":     <Cpu size={15} strokeWidth={1.5} />,
+  "AI Agents (LangChain, OpenAI)":    <SiOpenai />,
+  "VS Code + Extensions":             <Code2 size={15} strokeWidth={1.5} />,
+
+  // DevOps
+  "Docker":                   <SiDocker />,
+  "Kubernetes":               <SiKubernetes />,
+  "CI/CD (GitHub Actions)":   <SiGithubactions />,
+  "AWS / GCP":                <Cloud size={15} strokeWidth={1.5} />,
+  "Nginx":                    <SiNginx />,
+  "Monitoring (Sentry)":      <SiSentry />,
+};
+
+const categories = [
+  {
+    title: "FRONTEND",
+    version: "v3.2",
+    skills: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "Framer Motion",
+      "UI/UX Design Principles",
+      "Three.js / WebGL",
+    ],
+  },
+  {
+    title: "BACKEND",
+    version: "v4.0",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Supabase",
+      "GraphQL APIs",
+      "REST API Design",
+    ],
+  },
+  {
+    title: "TOOLS",
+    version: "v2.5",
+    skills: [
+      "Git & GitHub",
+      "Postman",
+      "Figma (UI/UX)",
+      "Shopify",
+      "MCP (Model Context Protocol)",
+      "AI Agents (LangChain, OpenAI)",
+      "VS Code + Extensions",
+    ],
+  },
+  {
+    title: "DEVOPS",
+    version: "v2.1",
+    skills: [
+      "Docker",
+      "Kubernetes",
+      "CI/CD (GitHub Actions)",
+      "AWS / GCP",
+      "Nginx",
+      "Monitoring (Sentry)",
+    ],
+  },
 ];
 
-function ModuleCard({ mod, index }: { mod: typeof modules[0]; index: number }) {
+function CategoryCard({ category, index }: { category: typeof categories[0]; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group relative terminal-border p-4 transition-all duration-300 cursor-default"
+      transition={{ duration: 0.45, delay: index * 0.1 }}
+      className="terminal-border p-6 flex flex-col"
       style={{ background: "var(--theme-card-bg)" }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-card-hover)")}
-      onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-card-bg)")}
     >
-      <div className="flex items-start justify-between mb-6">
-        <div>
-          <div className="text-sm font-mono font-bold tracking-[0.1em] mb-1" style={{ color: "var(--theme-text-bold)" }}>
-            {mod.name}
-          </div>
-          <div className="text-[10px] font-mono tracking-[0.15em]" style={{ color: "var(--theme-text-label)" }}>
-            {mod.sub}
-          </div>
-        </div>
-        <div
-          className="text-lg font-mono group-hover:opacity-100 transition-opacity"
-          style={{ color: "var(--theme-text-faint)" }}
+      {/* Header row */}
+      <div className="flex items-baseline justify-between mb-6 pb-4" style={{ borderBottom: "1px solid var(--theme-border-dim)" }}>
+        <h3
+          className="font-mono font-bold tracking-[0.12em]"
+          style={{ fontSize: "18px", color: "var(--theme-text-bold)" }}
         >
-          {mod.icon}
-        </div>
+          {category.title}
+        </h3>
+        <span
+          className="font-mono tracking-[0.15em]"
+          style={{ fontSize: "12px", color: "var(--theme-text-faint)" }}
+        >
+          {category.version}
+        </span>
       </div>
 
-      <div
-        className="absolute bottom-0 left-0 h-px transition-all duration-500"
-        style={{ width: "0%", background: "var(--theme-progress-bar)" }}
-      />
-
-      <motion.div
-        className="absolute bottom-0 left-0 h-px"
-        style={{ background: "var(--theme-progress-bar)" }}
-        initial={{ width: "0%" }}
-        animate={isInView ? { width: "30%" } : {}}
-        transition={{ duration: 0.8, delay: index * 0.05 + 0.3 }}
-      />
+      {/* Skill rows */}
+      <div className="flex flex-col gap-[14px]">
+        {category.skills.map((skill) => (
+          <div key={skill} className="flex items-center gap-3 min-w-0">
+            <span
+              className="shrink-0 flex items-center justify-center"
+              style={{
+                width: "16px",
+                height: "16px",
+                color: "var(--theme-text-dim)",
+                fontSize: "15px",
+              }}
+            >
+              {iconMap[skill] ?? null}
+            </span>
+            <span
+              className="font-mono truncate"
+              style={{ fontSize: "15px", color: "var(--theme-text-mid)" }}
+            >
+              {skill}
+            </span>
+          </div>
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -76,12 +175,12 @@ export default function ModulesSection() {
           className="flex items-center gap-3 mb-12"
         >
           <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
-          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_02 // SYS.MODULES</span>
+          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_02 // SYS.SKILLS</span>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {modules.map((mod, i) => (
-            <ModuleCard key={mod.name} mod={mod} index={i} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {categories.map((cat, i) => (
+            <CategoryCard key={cat.title} category={cat} index={i} />
           ))}
         </div>
       </div>
