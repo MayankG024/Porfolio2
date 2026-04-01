@@ -25,16 +25,9 @@ export default function QuickStatsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="flex flex-col items-center justify-center py-6 px-4 transition-colors duration-300"
+              className="flex flex-col items-center justify-center py-6 px-4 card-hover"
               style={{
                 border: "1px solid var(--theme-border)",
-                background: "var(--theme-card-bg)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "var(--theme-btn-hover)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "var(--theme-card-bg)";
               }}
             >
               <span

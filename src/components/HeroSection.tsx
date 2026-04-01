@@ -18,6 +18,11 @@ export default function HeroSection() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleMyWork = () => {
+    const el = document.querySelector("#output");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section
       id="identity"
@@ -94,6 +99,7 @@ export default function HeroSection() {
                 ESTABLISH CONTACT
               </button>
               <button
+                onClick={handleMyWork}
                 className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
                 style={{
                   letterSpacing: "0.1em",

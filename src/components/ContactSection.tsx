@@ -21,11 +21,9 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="w-full border p-8 md:p-12 lg:p-16"
+          className="w-full border p-8 md:p-12 lg:p-16 card-hover"
           style={{
             borderColor: "var(--theme-border-dim)",
-            background: "rgba(10, 10, 10, 0.4)", // Translucent dark background
-            backdropFilter: "blur(8px)",
           }}
         >
           <div className="flex items-center gap-3 mb-12">

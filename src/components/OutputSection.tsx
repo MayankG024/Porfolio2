@@ -51,10 +51,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="terminal-border p-6 transition-all duration-300 group"
-      style={{ background: "var(--theme-card-bg)" }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-card-hover)")}
-      onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-card-bg)")}
+      className="terminal-border p-6 transition-all duration-300 group card-hover"
     >
       <div className="flex items-center justify-between mb-4">
         <span className="text-[9px] font-mono tracking-[0.25em]" style={{ color: "var(--theme-text-label)" }}>

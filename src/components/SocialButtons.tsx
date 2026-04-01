@@ -22,18 +22,11 @@ export default function SocialButtons({ className = "" }: { className?: string }
           aria-label={link.label}
           title={link.label}
           download={link.download}
-          className="w-12 h-12 flex items-center justify-center transition-all duration-300"
+          className="w-12 h-12 flex items-center justify-center card-hover"
           style={{
-            background: "var(--theme-card-bg)",
             border: "1px solid rgba(150, 150, 150, 0.2)",
             borderRadius: "3px",
             color: "var(--theme-text-bold)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--theme-btn-hover)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "var(--theme-card-bg)";
           }}
         >
           {link.icon}

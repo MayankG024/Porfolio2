@@ -16,8 +16,8 @@ function GalaxyParticles({ scrollY, mouseX, mouseY, theme }: GalaxyProps) {
   const groupRef = useRef<THREE.Group>(null!);
 
   const CORE_COUNT    = 1400;
-  const ARM_COUNT     = 11000;
-  const SCATTER_COUNT = 6000;
+  const ARM_COUNT     = 14000;   // +3000 for denser arms
+  const SCATTER_COUNT = 9000;    // +3000 for more background stars
   const TOTAL         = CORE_COUNT + ARM_COUNT + SCATTER_COUNT;
   const BRANCHES      = 3;
   const SPIN          = 1.3;
@@ -113,7 +113,7 @@ function GalaxyParticles({ scrollY, mouseX, mouseY, theme }: GalaxyProps) {
       material.uniforms.uColorR.value = isLight ? 0.0 : 1.0;
       material.uniforms.uColorG.value = isLight ? 0.0 : 1.0;
       material.uniforms.uColorB.value = isLight ? 0.0 : 1.0;
-      material.uniforms.uSizeMult.value = isLight ? 1.8 : 1.3;
+      material.uniforms.uSizeMult.value = isLight ? 2.2 : 1.3; // bigger dots in light
     }
   }, [theme, material]);
 

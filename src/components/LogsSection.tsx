@@ -49,17 +49,9 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
       />
 
       <div 
-        className="p-6 rounded-sm border transition-colors duration-300"
+        className="p-6 rounded-sm border card-hover"
         style={{ 
-          background: "rgba(10, 10, 10, 0.45)", 
-          backdropFilter: "blur(6px)",
           borderColor: "var(--theme-border-faint)"
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(15, 15, 15, 0.65)";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(10, 10, 10, 0.45)";
         }}
       >
         <div className="flex flex-wrap items-baseline gap-3 mb-1">

@@ -34,7 +34,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className="relative min-h-screen" style={{ background: "var(--theme-bg)" }}>
+    <div className="relative min-h-screen">
       <GalaxyBackground scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} theme={theme} />
 
       <div

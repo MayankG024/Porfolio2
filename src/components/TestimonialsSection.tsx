@@ -30,8 +30,7 @@ function TestimonialCard({ testimonial, index }: { testimonial: typeof testimoni
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.15 }}
-      className="terminal-border p-6"
-      style={{ background: "var(--theme-card-bg)" }}
+      className="terminal-border p-6 card-hover"
     >
       <div className="mb-4" style={{ color: "var(--theme-quote-mark)", fontSize: "2rem", fontFamily: "serif", lineHeight: 1 }}>
         "

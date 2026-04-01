@@ -113,8 +113,7 @@ function CategoryCard({ category, index }: { category: typeof categories[0]; ind
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.45, delay: index * 0.1 }}
-      className="terminal-border p-6 flex flex-col"
-      style={{ background: "var(--theme-card-bg)" }}
+      className="terminal-border p-6 flex flex-col card-hover"
     >
       {/* Header row */}
       <div className="flex items-baseline justify-between mb-6 pb-4" style={{ borderBottom: "1px solid var(--theme-border-dim)" }}>

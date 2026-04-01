@@ -72,9 +72,9 @@
   --theme-footer-border: rgba(255, 255, 255, 0.07);
   --theme-corner: rgba(255, 255, 255, 0.4);
 
-  --theme-card-bg: #000000;
+  --theme-card-bg: rgba(0, 0, 0, 0.08);
   --theme-card-bg-alpha: rgba(0, 0, 0, 0.40);
-  --theme-card-hover: rgba(255, 255, 255, 0.05);
+  --theme-card-hover: #000000;
 
   --theme-nav-bg: rgba(9, 9, 9, 0.88);
   --theme-selection-bg: rgba(255, 255, 255, 0.2);
@@ -144,11 +144,11 @@ html.light {
   --theme-footer-border: rgba(0, 0, 0, 0.08);
   --theme-corner: rgba(0, 0, 0, 0.4);
 
-  --theme-card-bg: #ffffff;
-  --theme-card-bg-alpha: rgba(255, 255, 255, 0.7);
-  --theme-card-hover: rgba(0, 0, 0, 0.03);
+  --theme-card-bg: rgba(180, 180, 180, 0.35);       /* translucent grey card */
+  --theme-card-bg-alpha: rgba(160, 160, 160, 0.45); /* slightly more opaque */
+  --theme-card-hover: rgba(120, 120, 120, 0.05);
 
-  --theme-nav-bg: rgba(255, 255, 255, 0.92);
+  --theme-nav-bg: rgba(240, 240, 240, 0.92);
   --theme-selection-bg: rgba(0, 0, 0, 0.15);
   --theme-selection-fg: black;
   --theme-dot: rgba(0, 0, 0, 0.5);
@@ -306,6 +306,18 @@ html.light {
   }
 
 
+}
+
+/* Card hover transparency — outside layers for max specificity */
+.card-hover {
+  background: var(--theme-card-bg) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.3s ease !important;
+}
+
+.card-hover:hover {
+  background: var(--theme-card-hover) !important;
 }
 
 /* Smooth scrollbar */
