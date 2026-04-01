@@ -6,11 +6,40 @@ export default function ContactSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/mayankynr24@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          _subject: `New Mission Intel from ${form.name}`,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        console.error("Transmission failed");
+        alert("TRANSMISSION_FAILED. Please try again or use direct email.");
+      }
+    } catch (error) {
+      console.error("Transmission error", error);
+      alert("NETWORK_ERROR. Check connection and re-transmit.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -41,23 +70,23 @@ export default function ContactSection() {
                 <br />
                 Contact_
               </h2>
-              <p className="text-xs font-mono leading-relaxed mb-8 max-w-sm" style={{ color: "var(--theme-text-muted)" }}>
+              <p className="text-sm font-mono leading-relaxed mb-8 max-w-lg" style={{ color: "var(--theme-text-muted)" }}>
                 OPEN TO NEW PROJECTS AND COLLABORATIONS. Reach out if you have
                 an interesting problem that needs brutal engineering.
               </p>
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {[
                   { label: "EMAIL", value: "MAYANKYNR24@GMAIL.COM" },
                   { label: "GITHUB", value: "GITHUB.COM/MAYANKYNR24" },
                   { label: "LOCATION", value: "HIMALAYAS" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-4">
-                    <span className="text-[10px] font-mono tracking-[0.2em] w-20" style={{ color: "var(--theme-text-label)" }}>
+                    <span className="text-xs font-mono tracking-[0.2em] w-24" style={{ color: "var(--theme-text-label)" }}>
                       {item.label}
                     </span>
                     <div className="flex-1 h-px" style={{ background: "var(--theme-border-faint)" }} />
-                    <span className="text-[11px] font-mono tracking-[0.1em]" style={{ color: "var(--theme-text-mid)" }}>
+                    <span className="text-sm font-mono tracking-[0.1em]" style={{ color: "var(--theme-text-mid)" }}>
                       {item.value}
                     </span>
                   </div>
@@ -127,15 +156,16 @@ export default function ContactSection() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-3 font-mono text-xs tracking-[0.2em] transition-colors"
+                    disabled={isSubmitting}
+                    className={`w-full py-3 font-mono text-xs tracking-[0.2em] transition-colors ${isSubmitting ? "opacity-70 cursor-not-allowed" : "cursor-pointer"}`}
                     style={{
                       color: "var(--theme-cta-fg)",
                       background: "var(--theme-cta-bg)",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-cta-hover)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-cta-bg)")}
+                    onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.background = "var(--theme-cta-hover)")}
+                    onMouseLeave={(e) => !isSubmitting && (e.currentTarget.style.background = "var(--theme-cta-bg)")}
                   >
-                    TRANSMIT_MESSAGE
+                    {isSubmitting ? "TRANSMITTING..." : "TRANSMIT_MESSAGE"}
                   </button>
                 </form>
               ) : (

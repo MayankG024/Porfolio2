@@ -87,29 +87,55 @@ export default function HeroSection() {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={handleContact}
-                className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
+                className="group relative overflow-hidden font-mono text-xs tracking-[0.15em]"
                 style={{
                   letterSpacing: "0.1em",
-                  color: "var(--theme-text-bold)",
                   border: "1px solid var(--theme-btn-border)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-btn-hover)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
-                ESTABLISH CONTACT
+                <div className="px-5 py-2.5" style={{ color: "var(--theme-text-bold)", background: "transparent" }}>
+                  ESTABLISH CONTACT
+                </div>
+                <div 
+                  className="absolute left-0 top-0 bottom-0 w-0 overflow-hidden group-hover:w-full"
+                  style={{ 
+                    background: "var(--theme-text-bold)",
+                    transition: "width 300ms cubic-bezier(0.4, 0, 0.2, 1)"
+                  }}
+                >
+                  <div 
+                    className="flex w-max items-center h-full px-5 py-2.5"
+                    style={{ color: "var(--theme-bg)" }}
+                  >
+                    ESTABLISH CONTACT
+                  </div>
+                </div>
               </button>
               <button
                 onClick={handleMyWork}
-                className="px-5 py-2.5 font-mono text-xs tracking-[0.15em] transition-all duration-200"
+                className="group relative overflow-hidden font-mono text-xs tracking-[0.15em]"
                 style={{
                   letterSpacing: "0.1em",
-                  color: "var(--theme-cta-fg)",
-                  background: "var(--theme-cta-bg)",
+                  border: "1px solid var(--theme-cta-bg)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--theme-cta-hover)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "var(--theme-cta-bg)")}
               >
-                MY WORK
+                <div className="px-5 py-2.5" style={{ color: "var(--theme-cta-fg)", background: "var(--theme-cta-bg)" }}>
+                  MY WORK
+                </div>
+                <div 
+                  className="absolute left-0 top-0 bottom-0 w-0 overflow-hidden group-hover:w-full"
+                  style={{ 
+                    background: "var(--theme-cta-fg)",
+                    transition: "width 300ms cubic-bezier(0.4, 0, 0.2, 1)"
+                  }}
+                >
+                  <div 
+                    className="flex w-max items-center h-full px-5 py-2.5"
+                    style={{ color: "var(--theme-cta-bg)" }}
+                  >
+                    MY WORK
+                  </div>
+                </div>
               </button>
             </div>
 

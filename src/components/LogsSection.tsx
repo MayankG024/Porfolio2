@@ -4,25 +4,32 @@ import { useRef } from "react";
 
 const experiences = [
   {
-    title: "Lead System Architect",
-    period: "2022_PRESENT",
-    company: "NOVA_CORP",
-    description: "Directing a team of 8 engineers in the migration from legacy monolithic architecture to a distributed micro-frontend system. Improved system fault tolerance by 40% and reduced CI/CD pipeline execution time by half.",
-    tags: ["NODE_JS", "KUBERNETES", "AWS"],
+    title: "Software Developer",
+    period: "2026_PRESENT",
+    company: "INCUBR",
+    description: "Developed scalable frontend and backend production systems. Developed end-to-end CRM system and workplace management webapp. (Delhi, India - On-site)",
+    tags: ["FRONTEND", "BACKEND", "SYSTEMS"],
   },
   {
-    title: "Creative Developer",
-    period: "2020_2022",
-    company: "STUDIO_VOID",
-    description: "Built immersive WebGL experiences for high-end fashion and tech brands. Bridged the gap between the design team's Figma concepts and performant shader-based browser execution.",
-    tags: ["THREE_JS", "GLSL", "GSAP"],
+    title: "Freelance Web Developer",
+    period: "ONGOING",
+    company: "FREELANCE",
+    description: "Delivered production-grade web applications and interfaces for a number of clients. (Remote)",
+    tags: ["FULLSTACK", "WEB_DEV", "UI"],
   },
   {
-    title: "Frontend Engineer",
-    period: "2018_2020",
-    company: "DATA_SYNC_LLC",
-    description: "Developed enterprise dashboard interfaces for real-time data monitoring. Implemented strict design system tokens and created an internal library of reusable React components.",
-    tags: ["REACT", "REDUX", "D3_JS"],
+    title: "Student Ambassador",
+    period: "2024_2025",
+    company: "BLACKBOX_AI",
+    description: "Worked with LLM tools and promoted AI adoption and education. (Dehradun, India)",
+    tags: ["LLM", "AI", "EDUCATION"],
+  },
+  {
+    title: "Core Team",
+    period: "2024_PRESENT",
+    company: "FOSS_UNITED_DEHRADUN",
+    description: "Created technical content and organized developer events to promote Free and open source software. (Dehradun, India)",
+    tags: ["OPEN_SOURCE", "EVENTS", "CONTENT"],
   },
 ];
 
@@ -55,24 +62,24 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
         }}
       >
         <div className="flex flex-wrap items-baseline gap-3 mb-1">
-          <h4 className="text-sm font-mono font-bold tracking-[0.05em]" style={{ color: "var(--theme-text-bold)" }}>
+          <h4 className="text-base font-mono font-bold tracking-[0.05em]" style={{ color: "var(--theme-text-bold)" }}>
             {exp.title}
           </h4>
         </div>
 
         <div className="flex items-center gap-2 mb-3">
-          <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
+          <span className="text-xs font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
             {exp.period}
           </span>
           <span style={{ color: "var(--theme-text-faint)" }}>//</span>
-          <span className="text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-dim)" }}>
+          <span className="text-xs font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-dim)" }}>
             {exp.company}
           </span>
         </div>
 
         <p
-          className="text-xs font-mono leading-relaxed mb-4"
-          style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}
+          className="text-sm font-mono leading-relaxed mb-4"
+          style={{ color: "var(--theme-text-muted)" }}
         >
           {exp.description}
         </p>
@@ -81,7 +88,7 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
           {exp.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[9px] font-mono tracking-[0.15em] px-2 py-1"
+              className="text-[10px] font-mono tracking-[0.15em] px-2 py-1"
               style={{
                 color: "var(--theme-text-dim)",
                 border: "1px solid var(--theme-border-faint)",
