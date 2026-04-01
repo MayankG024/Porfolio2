@@ -144,9 +144,9 @@ html.light {
   --theme-footer-border: rgba(0, 0, 0, 0.08);
   --theme-corner: rgba(0, 0, 0, 0.4);
 
-  --theme-card-bg: rgba(255, 255, 255, 0.85);       
-  --theme-card-bg-alpha: rgba(255, 255, 255, 0.95); 
-  --theme-card-hover: rgba(255, 255, 255, 1);
+  --theme-card-bg: rgba(245, 245, 245, 0.85);       
+  --theme-card-bg-alpha: rgba(245, 245, 245, 0.95); 
+  --theme-card-hover: rgba(245, 245, 245, 1);
 
   --theme-nav-bg: rgba(240, 240, 240, 0.92);
   --theme-selection-bg: rgba(0, 0, 0, 0.15);
