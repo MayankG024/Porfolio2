@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import SocialButtons from "./SocialButtons";
 import { playHoverSound, playClickSound } from "@/lib/audio";
@@ -31,7 +31,22 @@ function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: s
     };
   }, [delay, interval, sequence.length]);
 
-  return <span>{sequence[index]}</span>;
+  return (
+    <span className="inline-block relative">
+      <AnimatePresence mode="popLayout">
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, filter: "blur(8px)", scale: 0.98 }}
+          animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+          exit={{ opacity: 0, filter: "blur(8px)", scale: 1.02 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="inline-block whitespace-nowrap"
+        >
+          {sequence[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
 }
 
 export default function HeroSection() {
@@ -88,9 +103,9 @@ export default function HeroSection() {
                 color: "var(--theme-text-bold)",
               }}
             >
-              <TranslationCycle sequence={MAYANK_SEQ} delay={200} interval={350} />
+              <TranslationCycle sequence={MAYANK_SEQ} delay={250} interval={350} />
               <br />
-              <TranslationCycle sequence={GUPTA_SEQ} delay={400} interval={350} />
+              <TranslationCycle sequence={GUPTA_SEQ} delay={250} interval={350} />
             </h1>
             <div
               className="font-mono font-semibold tracking-[0.15em] mb-8 uppercase"
