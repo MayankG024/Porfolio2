@@ -88,9 +88,9 @@ export default function HeroSection() {
                 color: "var(--theme-text-bold)",
               }}
             >
-              <TranslationCycle sequence={MAYANK_SEQ} delay={200} interval={300} />
+              <TranslationCycle sequence={MAYANK_SEQ} delay={200} interval={350} />
               <br />
-              <TranslationCycle sequence={GUPTA_SEQ} delay={400} interval={300} />
+              <TranslationCycle sequence={GUPTA_SEQ} delay={400} interval={350} />
             </h1>
             <div
               className="font-mono font-semibold tracking-[0.15em] mb-8 uppercase"
