@@ -48,14 +48,14 @@ function AppContent() {
         <main>
           <HeroSection />
 
-          <QuickStatsSection />
-
           <div
             className="mx-6 md:mx-8 lg:mx-16"
             style={{ height: "1px", background: "var(--theme-divider)" }}
           />
 
           <ModulesSection />
+
+          <QuickStatsSection />
 
           <div
             className="mx-6 md:mx-8 lg:mx-16"

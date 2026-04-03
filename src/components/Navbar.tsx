@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "@/lib/ThemeContext";
 import { Sun, Moon, Music, VolumeX } from "lucide-react";
 import { useRef, useState, useEffect, useCallback } from "react";
+import { playHoverSound, playClickSound } from "@/lib/audio";
 
 const navItems = [
   { label: " IDENTITY ", href: "#identity" },
@@ -27,7 +28,10 @@ function NavIconButton({
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => {
+        playClickSound();
+        onClick();
+      }}
       aria-label={ariaLabel}
       title={title}
       className="relative flex items-center justify-center cursor-pointer overflow-hidden"
@@ -40,6 +44,7 @@ function NavIconButton({
         transition: "background 0.3s ease, border-color 0.3s ease",
       }}
       onMouseEnter={(e) => {
+        playHoverSound();
         e.currentTarget.style.background = isDark
           ? "rgba(255,255,255,0.06)"
           : "rgba(0,0,0,0.05)";
@@ -212,13 +217,28 @@ export default function Navbar() {
         {navItems.map((item, index) => (
           <div key={item.label} className="flex items-center gap-5">
             <button
-              onClick={() => handleClick(item.href)}
-              className="font-mono tracking-[0.2em] transition-colors duration-200"
-              style={{ fontSize: "12px", color: "var(--theme-text-nav)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--theme-text-bold)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--theme-text-nav)")}
+              onMouseEnter={playHoverSound}
+              onClick={() => { playClickSound(); handleClick(item.href); }}
+              className="group relative overflow-hidden font-mono tracking-[0.2em] flex items-center justify-center cursor-pointer"
+              style={{ fontSize: "12px" }}
             >
-              {item.label.trim()}
+              <div className="py-1 px-2 transition-colors duration-200 group-hover:text-[var(--theme-text-bold)]" style={{ color: "var(--theme-text-nav)" }}>
+                {item.label.trim()}
+              </div>
+              <div 
+                className="absolute left-0 top-0 bottom-0 w-0 overflow-hidden group-hover:w-full"
+                style={{ 
+                  background: "var(--theme-text-bold)",
+                  transition: "width 300ms cubic-bezier(0.4, 0, 0.2, 1)"
+                }}
+              >
+                <div 
+                  className="flex items-center h-full py-1 px-2 whitespace-nowrap w-max"
+                  style={{ color: "var(--theme-bg)" }}
+                >
+                  {item.label.trim()}
+                </div>
+              </div>
             </button>
             {index < navItems.length - 1 && (
               <span className="font-mono" style={{ color: "var(--theme-border)", fontSize: "12px" }}>|</span>

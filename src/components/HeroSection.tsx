@@ -1,6 +1,38 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import SocialButtons from "./SocialButtons";
+import { playHoverSound, playClickSound } from "@/lib/audio";
+
+// Language sequence: Japanese -> Chinese -> Hindi -> Russian -> Hebrew -> English
+const MAYANK_SEQ = ["マヤンク", "马扬克", "मयंक", "Маянк", "מיאנק", "MAYANK"];
+const GUPTA_SEQ = ["グプタ", "古普塔", "गुप्ता", "Гупта", "גופטה", "GUPTA"];
+
+function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: string[]; delay?: number; interval?: number }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    let cycleInterval: ReturnType<typeof setInterval>;
+    
+    // Wait for the initial delay before starting the cycle
+    const timeout = setTimeout(() => {
+      let step = 0;
+      cycleInterval = setInterval(() => {
+        step++;
+        if (step >= sequence.length - 1) {
+          clearInterval(cycleInterval);
+        }
+        setIndex(step);
+      }, interval);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(cycleInterval);
+    };
+  }, [delay, interval, sequence.length]);
+
+  return <span>{sequence[index]}</span>;
+}
 
 export default function HeroSection() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -14,11 +46,13 @@ export default function HeroSection() {
   }, []);
 
   const handleContact = () => {
+    playClickSound();
     const el = document.querySelector("#contact");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleMyWork = () => {
+    playClickSound();
     const el = document.querySelector("#output");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -54,9 +88,9 @@ export default function HeroSection() {
                 color: "var(--theme-text-bold)",
               }}
             >
-              MAYANK
+              <TranslationCycle sequence={MAYANK_SEQ} delay={200} interval={300} />
               <br />
-              GUPTA
+              <TranslationCycle sequence={GUPTA_SEQ} delay={400} interval={300} />
             </h1>
             <div
               className="font-mono font-semibold tracking-[0.15em] mb-8 uppercase"
@@ -87,6 +121,7 @@ export default function HeroSection() {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={handleContact}
+                onMouseEnter={playHoverSound}
                 className="group relative overflow-hidden font-mono text-xs tracking-[0.15em]"
                 style={{
                   letterSpacing: "0.1em",
@@ -113,6 +148,7 @@ export default function HeroSection() {
               </button>
               <button
                 onClick={handleMyWork}
+                onMouseEnter={playHoverSound}
                 className="group relative overflow-hidden font-mono text-xs tracking-[0.15em]"
                 style={{
                   letterSpacing: "0.1em",

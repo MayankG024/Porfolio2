@@ -9,15 +9,15 @@ export default function QuickStatsSection() {
   const stats = [
     { label: "EXPERIENCE", value: "2+ Years" },
     { label: "EDUCATION", value: <>Bachelor's<br />Computer Science</> },
-    { label: "LANGUAGES", value: <>English,<br />Hindi</> },
+    { label: "LANGUAGES", value: <>English <br />Hindi </> },
   ];
 
   return (
-    <section className="relative pb-24 px-6 md:px-8 lg:px-16 pt-0">
-      <div className="max-w-5xl mx-auto">
+    <section className="relative pt-12 pb-24 px-6 md:px-8 lg:px-16">
+      <div className="w-full max-w-7xl mx-auto">
         <motion.div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24 lg:gap-32"
         >
           {stats.map((stat, i) => (
             <motion.div
@@ -25,7 +25,7 @@ export default function QuickStatsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="flex flex-col items-center justify-center py-6 px-4 card-hover"
+              className="flex flex-col items-center justify-center py-4 px-2 card-hover"
               style={{
                 border: "1px solid var(--theme-border)",
               }}

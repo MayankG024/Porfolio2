@@ -164,7 +164,7 @@ export default function ModulesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="modules" className="relative py-24 px-6 md:px-8 lg:px-16">
+    <section id="modules" className="relative pt-24 pb-12 px-6 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
         <motion.div
           ref={ref}

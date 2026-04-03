@@ -165,7 +165,7 @@ export default function ContactSection() {
                     onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.background = "var(--theme-cta-hover)")}
                     onMouseLeave={(e) => !isSubmitting && (e.currentTarget.style.background = "var(--theme-cta-bg)")}
                   >
-                    {isSubmitting ? "TRANSMITTING..." : "TRANSMIT_MESSAGE"}
+                    {isSubmitting ? "Transmitting..." : "Transmit Message"}
                   </button>
                 </form>
               ) : (
