@@ -4,8 +4,8 @@ import SocialButtons from "./SocialButtons";
 import { playHoverSound, playClickSound } from "@/lib/audio";
 
 // Language sequence: Japanese -> Chinese -> Hindi -> Russian -> Tibetan -> English
-const MAYANK_SEQ = ["マヤンク", "马扬克", "मयंक", "Маянк", "མ་ཡནཀ", "MAYANK"];
-const GUPTA_SEQ = ["グプタ", "古普塔", "गुप्ता", "Гупта", "གུཔ་ཏ", "GUPTA"];
+const MAYANK_SEQ = ["マヤンク", "马扬克", "Μαγιανκ", "मयंक","Маянк",  "MAYANK"];
+const GUPTA_SEQ = ["グプタ", "古普塔",   "Γκουπτα","गुप्ता","Гупта", "GUPTA"];
 
 function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: string[]; delay?: number; interval?: number }) {
   const [index, setIndex] = useState(0);
