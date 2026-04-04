@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import SocialButtons from "./SocialButtons";
 import { playHoverSound, playClickSound } from "@/lib/audio";
 
-// Language sequence: Japanese -> Chinese -> Hindi -> Russian -> Tibetan -> English
+// Language sequence: Japanese -> Chinese -> Greek -> Hindi -> Russian -> English
 const MAYANK_SEQ = ["マヤンク", "马扬克", "Μαγιανκ", "मयंक","Маянк",  "MAYANK"];
 const GUPTA_SEQ = ["グプタ", "古普塔",   "Γκουπτα","गुप्ता","Гупта", "GUPTA"];
 

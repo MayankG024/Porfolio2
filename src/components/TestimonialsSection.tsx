@@ -4,13 +4,13 @@ import { useRef } from "react";
 
 const testimonials = [
   {
-    quote: "John doesn't just write code; he constructs architecture. The systems he built for us are virtually indestructible and perform at levels we didn't think possible in the browser.",
+    quote: "Mayank doesn't just write code; he constructs architecture. The systems he built for us are virtually indestructible and perform at levels we didn't think possible in the browser.",
     author: "Sarah Jenkins",
     role: "CTO, NOVA_CORP",
   },
   {
     quote: "A rare blend of hardcore technical understanding and aesthetic sensibility. The WebGL pipeline he established for our studio cut render times down drastically while looking incredible.",
-    author: "Marcus Wei",
+    author: "Marcus Arelius",
     role: "DIRECTOR, STUDIO_VOID",
   },
   {
