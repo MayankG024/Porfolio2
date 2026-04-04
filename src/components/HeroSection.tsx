@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import SocialButtons from "./SocialButtons";
 import { playHoverSound, playClickSound } from "@/lib/audio";
 
-// Language sequence: Japanese -> Chinese -> Hindi -> Russian -> Hebrew -> English
-const MAYANK_SEQ = ["マヤンク", "马扬克", "मयंक", "Маянк", "מיאנק", "MAYANK"];
-const GUPTA_SEQ = ["グプタ", "古普塔", "गुप्ता", "Гупта", "גופטה", "GUPTA"];
+// Language sequence: Japanese -> Chinese -> Hindi -> Russian -> Tibetan -> English
+const MAYANK_SEQ = ["マヤンク", "马扬克", "मयंक", "Маянк", "མ་ཡནཀ", "MAYANK"];
+const GUPTA_SEQ = ["グプタ", "古普塔", "गुप्ता", "Гупта", "གུཔ་ཏ", "GUPTA"];
 
 function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: string[]; delay?: number; interval?: number }) {
   const [index, setIndex] = useState(0);
