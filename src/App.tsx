@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { ThemeProvider, useTheme } from "@/lib/ThemeContext";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import QuickStatsSection from "@/components/QuickStatsSection";
-import ModulesSection from "@/components/ModulesSection";
-import OutputSection from "@/components/OutputSection";
-import LogsSection from "@/components/LogsSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
 import StructuredData from "@/components/SEO/StructuredData";
+
+const QuickStatsSection = lazy(() => import("@/components/QuickStatsSection"));
+const ModulesSection = lazy(() => import("@/components/ModulesSection"));
+const OutputSection = lazy(() => import("@/components/OutputSection"));
+const LogsSection = lazy(() => import("@/components/LogsSection"));
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 function AppContent() {
   const [scrollY, setScrollY] = useState(0);
@@ -50,45 +51,49 @@ function AppContent() {
         <main>
           <HeroSection />
 
-          <div
-            className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "var(--theme-divider)" }}
-          />
+          <Suspense fallback={null}>
+            <div
+              className="mx-6 md:mx-8 lg:mx-16"
+              style={{ height: "1px", background: "var(--theme-divider)" }}
+            />
 
-          <ModulesSection />
+            <ModulesSection />
 
-          <QuickStatsSection />
+            <QuickStatsSection />
 
-          <div
-            className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "var(--theme-divider)" }}
-          />
+            <div
+              className="mx-6 md:mx-8 lg:mx-16"
+              style={{ height: "1px", background: "var(--theme-divider)" }}
+            />
 
-          <OutputSection />
+            <OutputSection />
 
-          <div
-            className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "var(--theme-divider)" }}
-          />
+            <div
+              className="mx-6 md:mx-8 lg:mx-16"
+              style={{ height: "1px", background: "var(--theme-divider)" }}
+            />
 
-          <LogsSection />
+            <LogsSection />
 
-          <div
-            className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "var(--theme-divider)" }}
-          />
+            <div
+              className="mx-6 md:mx-8 lg:mx-16"
+              style={{ height: "1px", background: "var(--theme-divider)" }}
+            />
 
-          <TestimonialsSection />
+            <TestimonialsSection />
 
-          <div
-            className="mx-6 md:mx-8 lg:mx-16"
-            style={{ height: "1px", background: "var(--theme-divider)" }}
-          />
+            <div
+              className="mx-6 md:mx-8 lg:mx-16"
+              style={{ height: "1px", background: "var(--theme-divider)" }}
+            />
 
-          <ContactSection />
+            <ContactSection />
+          </Suspense>
         </main>
 
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
       </div>
     </div>
   );
