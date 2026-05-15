@@ -10,6 +10,7 @@ import LogsSection from "@/components/LogsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/SEO/StructuredData";
 
 function AppContent() {
   const [scrollY, setScrollY] = useState(0);
@@ -35,6 +36,7 @@ function AppContent() {
 
   return (
     <div className="relative min-h-screen">
+      <StructuredData />
       <GalaxyBackground scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} theme={theme} />
 
       <div
