@@ -10,7 +10,7 @@ const projects = [
       "Clinic and patient management CRM built with PostgreSQL, Railway, Redis, and PubMed integrations. The platform handles medical feeds, nutritionist workflows, patient records, and production deployment for active healthcare users.",
     tags: ["POSTGRESQL", "RAILWAY", "REDIS", "PUBMED_API"],
     github: "https://github.com/MayankG024/Ethi",
-    live: "https://ethi.site",
+    live: "https://ethi.life/",
   },
   {
     id: "002_MUSIGO",
@@ -40,7 +40,7 @@ const projects = [
       "AI nutrition application that improves meals with OpenAI workflows, ChromaDB retrieval, TypeScript interfaces, and motion-rich UX. The system connects food context to practical meal swaps and nutrition suggestions.",
     tags: ["TYPESCRIPT", "OPENAI", "CHROMADB", "FRAMER_MOTION"],
     github: "https://github.com/MayankG024/Healthyswap",
-    live: "https://maynk.me/Healthyswap",
+    live: "https://healthyswap-lime.vercel.app/",
   },
   {
     id: "005_PORTFOLIO",
