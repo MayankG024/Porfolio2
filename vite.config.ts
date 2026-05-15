@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    visualizer({ open: false })
+    visualizer({ open: false, filename: "dist/stats.html" })
   ],
   resolve: {
     alias: {

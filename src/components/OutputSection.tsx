@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const projects = [
@@ -7,17 +6,19 @@ const projects = [
     id: "001_ETHI",
     category: "CRM / HEALTH_TECH",
     title: "Ethi CRM",
-    description: "End-to-End CRM tool for clinic and patient management with standout features like medical feeds. Currently being used by multiple Nutritionists.",
-    tags: ["PUBMED_API", "POSTGRESQL", "RAILWAY", "REDIS"],
+    description:
+      "Clinic and patient management CRM built with PostgreSQL, Railway, Redis, and PubMed integrations. The platform handles medical feeds, nutritionist workflows, patient records, and production deployment for active healthcare users.",
+    tags: ["POSTGRESQL", "RAILWAY", "REDIS", "PUBMED_API"],
     github: "https://github.com/MayankG024/Ethi",
     live: "https://ethi.site",
   },
   {
     id: "002_MUSIGO",
     category: "AI_PLATFORM",
-    title: "Musigo — AI Music Discovery",
-    description: "Built natural-language music discovery using AI pipelines. Implemented semantic vector search and personalization.",
-    tags: ["FASTAPI", "RAG", "LANGCHAIN", "CHROMADB"],
+    title: "Musigo - AI Music Discovery",
+    description:
+      "AI-powered music discovery platform using FastAPI, LangChain, ChromaDB, RAG, and vector search pipelines. The backend uses semantic retrieval and LLM workflows to turn natural-language prompts into personalized recommendations.",
+    tags: ["FASTAPI", "LANGCHAIN", "CHROMADB", "RAG"],
     github: "https://github.com/MayankG024/Musigo",
     live: "",
   },
@@ -25,8 +26,9 @@ const projects = [
     id: "003_BLUENCORE",
     category: "E_COMMERCE",
     title: "Bluencore Store",
-    description: "Educational board and strategy games store. Shopify build end to end with in-depth theme and app customizations through Shopify Liquid files and CLI tool.",
-    tags: ["SHOPIFY_LIQUID", "CUSTOM_APP", "WEB"],
+    description:
+      "Shopify ecommerce implementation for an educational board and strategy games store. Built custom Liquid theme sections, app integrations, cart logic, and deployment workflows through Shopify CLI.",
+    tags: ["SHOPIFY_LIQUID", "CUSTOM_APP", "ECOMMERCE"],
     github: "",
     live: "https://bluencore-wholesale.com/",
   },
@@ -34,8 +36,9 @@ const projects = [
     id: "004_HEALTHYSWAP",
     category: "AI_NUTRITION",
     title: "Healthyswap",
-    description: "An AI Driven Meal improvement and nutritional Website.",
-    tags: ["FRAMER_MOTION", "TYPESCRIPT", "OPENAI", "CHROMADB"],
+    description:
+      "AI nutrition application that improves meals with OpenAI workflows, ChromaDB retrieval, TypeScript interfaces, and motion-rich UX. The system connects food context to practical meal swaps and nutrition suggestions.",
+    tags: ["TYPESCRIPT", "OPENAI", "CHROMADB", "FRAMER_MOTION"],
     github: "https://github.com/MayankG024/Healthyswap",
     live: "https://maynk.me/Healthyswap",
   },
@@ -43,7 +46,8 @@ const projects = [
     id: "005_PORTFOLIO",
     category: "WEB_DEVELOPMENT",
     title: "Retro Portfolio",
-    description: "A retro gaming-inspired portfolio website built with React, TypeScript, and Tailwind CSS with my blogs and knowledge stash!",
+    description:
+      "React, TypeScript, and Tailwind CSS portfolio and knowledge base focused on performant frontend architecture, personal writing, project documentation, and search-friendly technical content.",
     tags: ["REACT", "TYPESCRIPT", "TAILWIND"],
     github: "https://github.com/MayankG024/Portfolio-website",
     live: "https://mynk.site",
@@ -52,11 +56,12 @@ const projects = [
     id: "006_WORKLIFE",
     category: "WEB_APP",
     title: "Worklife Desks",
-    description: "A modern workplace management application.",
-    tags: ["VITE", "ZUSTAND", "SONNER", "RESEND"],
+    description:
+      "Workplace management application built with Vite, Zustand, Sonner, and Resend. The app organizes desk workflows, operational state, notification feedback, and email-driven communication for office teams.",
+    tags: ["VITE", "ZUSTAND", "RESEND", "WEB_APP"],
     github: "https://github.com/MayankG024/worklife-desks",
     live: "",
-  }
+  },
 ];
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
@@ -119,7 +124,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
           >
             Live_Site
-            <span className="transition-transform group-hover:translate-x-1">→</span>
+            <span className="transition-transform group-hover:translate-x-1">-&gt;</span>
           </a>
         )}
         {project.github && (
@@ -131,7 +136,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
           >
             View_Repository
-            <span className="transition-transform group-hover:translate-x-1">→</span>
+            <span className="transition-transform group-hover:translate-x-1">-&gt;</span>
           </a>
         )}
       </div>

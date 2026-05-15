@@ -95,6 +95,7 @@ export default function HeroSection() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <h1
+              aria-label="Mayank Gupta"
               className="font-mono font-black leading-[0.9] tracking-tight mb-4"
               style={{
                 fontSize: "clamp(3.5rem, 10vw, 8rem)",
@@ -119,10 +120,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm leading-relaxed mb-10 max-w-md font-mono"
+            className="text-sm leading-relaxed mb-4 max-w-md font-mono"
             style={{ color: "var(--theme-text-muted)", fontSize: "13px" }}
           >
-            Extracting structure from noise. With 2+ years of Designing brutal, scalable backend
+            Extracting structure from noise. With 2+ years of Designing Web applications, scalable backend
             systems and high-performance client interfaces. Exploring the void
             between code and aesthetic logic.
           </motion.p>
