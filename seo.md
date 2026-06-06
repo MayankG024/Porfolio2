@@ -1,7 +1,7 @@
 # SEO Implementation Plan — maynk.me (React + Vite SPA)
 
 Repository:
-- https://github.com/MayankG024/Porfolio2
+- https://github.com/MayankG024/Portfolio2
 
 Goal:
 Improve SEO, indexing, discoverability, semantic relevance, and performance for a single-page portfolio website.
