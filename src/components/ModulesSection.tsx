@@ -5,7 +5,7 @@ import { useRef, type ReactNode } from "react";
 /* ── Brand icons (Simple Icons via react-icons) ── */
 import {
   SiTypescript, SiReact, SiNextdotjs, SiTailwindcss, SiFramer, SiThreedotjs,
-  SiNodedotjs, SiExpress, SiPostgresql, SiSupabase, SiGraphql,
+  SiNodedotjs, SiExpress, SiPostgresql, SiPrisma, SiRedis, SiGraphql,
   SiGithub, SiPostman, SiFigma, SiShopify, SiOpenai,
   SiDocker, SiKubernetes, SiGithubactions, SiNginx, SiSentry,
 } from "react-icons/si";
@@ -28,7 +28,8 @@ const iconMap: Record<string, ReactNode> = {
   "Node.js":                  <SiNodedotjs />,
   "Express.js":               <SiExpress />,
   "PostgreSQL":               <SiPostgresql />,
-  "Supabase":                 <SiSupabase />,
+  "Prisma":                   <SiPrisma />,
+  "Redis":                    <SiRedis />,
   "GraphQL APIs":             <SiGraphql />,
   "REST API Design":          <Globe size={15} strokeWidth={1.5} />,
 
@@ -71,7 +72,8 @@ const categories = [
       "Node.js",
       "Express.js",
       "PostgreSQL",
-      "Supabase",
+      "Prisma",
+      "Redis",
       "GraphQL APIs",
       "REST API Design",
     ],
