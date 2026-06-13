@@ -5,28 +5,28 @@ import { useRef } from "react";
 const experiences = [
   {
     title: "Software Developer",
-    period: "2026_PRESENT",
+    period: "JAN 2026 - MAY 2026",
     company: "INCUBR",
-    description: "Developed scalable frontend and backend production systems. Developed end-to-end CRM system and workplace management webapp. (Delhi, India - On-site)",
+    description: "Managed and collaborated with a team of developers and designers. Developed end-to-end CRM system and workplace management webapp. (Delhi, India - On-site)",
     tags: ["FRONTEND", "BACKEND", "SYSTEMS"],
   },
   {
     title: "Freelance Web Developer",
-    period: "ONGOING",
+    period: "APRIL 2024 - PRESENT",
     company: "FREELANCE",
-    description: "Delivered production-grade web applications and interfaces for a number of clients. (Remote)",
+    description: "Delivered production-grade web applications and interfaces for a number of clients in India and Abroad. (Remote)",
     tags: ["FULLSTACK", "WEB_DEV", "UI"],
   },
   {
     title: "Student Ambassador",
-    period: "2024_2025",
+    period: "OCT 2024 - DEC 2025",
     company: "BLACKBOX_AI",
-    description: "Worked with LLM tools and promoted AI adoption and education. (Dehradun, India)",
+    description: "Collaborated and worked with a global network of AI Mavericks and creating awareness and learning AI chatbots , LLMs and NLP and RAG pipelines.",
     tags: ["LLM", "AI", "EDUCATION"],
   },
   {
     title: "Core Team",
-    period: "2024_PRESENT",
+    period: "SEPT 2024 - NOV 2025",
     company: "FOSS_UNITED_DEHRADUN",
     description: "Created technical content and organized developer events to promote Free and open source software. (Dehradun, India)",
     tags: ["OPEN_SOURCE", "EVENTS", "CONTENT"],
@@ -55,9 +55,9 @@ function ExperienceEntry({ exp, index }: { exp: typeof experiences[0]; index: nu
         style={{ width: "5px", height: "5px", background: "var(--theme-dot-timeline)" }}
       />
 
-      <div 
+      <div
         className="p-6 rounded-sm border card-hover"
-        style={{ 
+        style={{
           borderColor: "var(--theme-border-faint)"
         }}
       >
