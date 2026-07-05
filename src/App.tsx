@@ -4,6 +4,8 @@ import GalaxyBackground from "@/components/GalaxyBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StructuredData from "@/components/SEO/StructuredData";
+import ScrollRail from "@/components/ScrollRail";
+
 
 const QuickStatsSection = lazy(() => import("@/components/QuickStatsSection"));
 const ModulesSection = lazy(() => import("@/components/ModulesSection"));
@@ -21,9 +23,15 @@ function AppContent() {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
+    
+    let frameId: number | null = null;
     const handleMouseMove = (e: MouseEvent) => {
-      setMouseX((e.clientX / window.innerWidth - 0.5) * 2);
-      setMouseY((e.clientY / window.innerHeight - 0.5) * 2);
+      if (frameId !== null) return;
+      frameId = requestAnimationFrame(() => {
+        setMouseX((e.clientX / window.innerWidth - 0.5) * 2);
+        setMouseY((e.clientY / window.innerHeight - 0.5) * 2);
+        frameId = null;
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -32,6 +40,7 @@ function AppContent() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouseMove);
+      if (frameId !== null) cancelAnimationFrame(frameId);
     };
   }, []);
 
@@ -47,6 +56,7 @@ function AppContent() {
 
       <div className="relative z-10">
         <Navbar />
+        <ScrollRail scrollY={scrollY} />
 
         <main>
           <HeroSection />

@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import DecryptText from "./DecryptText";
+import CountUp from "./CountUp";
+
 
 export default function QuickStatsSection() {
   const ref = useRef(null);
@@ -40,7 +43,23 @@ export default function QuickStatsSection() {
                 className="font-mono font-bold tracking-tight text-center"
                 style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.15rem)", color: "var(--theme-text-bold)", lineHeight: "1.2" }}
               >
-                {stat.value}
+                {stat.label === "EXPERIENCE" ? (
+                  <CountUp start={0.0} end={2.0} decimals={1} suffix="+ Years" trigger={isInView} delay={150} />
+                ) : stat.label === "EDUCATION" ? (
+                  <>
+                    <DecryptText text="Bachelor's" trigger={isInView} delay={250} />
+                    <br />
+                    <DecryptText text="Computer Science" trigger={isInView} delay={250} />
+                  </>
+                ) : stat.label === "LANGUAGES" ? (
+                  <>
+                    <DecryptText text="English" trigger={isInView} delay={350} />
+                    <br />
+                    <DecryptText text="Hindi" trigger={isInView} delay={350} />
+                  </>
+                ) : (
+                  stat.value
+                )}
               </span>
             </motion.div>
           ))}

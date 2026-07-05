@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SocialButtons from "./SocialButtons";
 import { playHoverSound, playClickSound } from "@/lib/audio";
 
@@ -50,14 +50,28 @@ function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: s
 }
 
 export default function HeroSection() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const posXRef = useRef<HTMLDivElement>(null);
+  const posYRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let frameId: number | null = null;
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      if (frameId !== null) return;
+      frameId = requestAnimationFrame(() => {
+        if (posXRef.current) {
+          posXRef.current.textContent = `POS_X: ${e.clientX.toString().padStart(4, '0')}`;
+        }
+        if (posYRef.current) {
+          posYRef.current.textContent = `POS_Y: ${e.clientY.toString().padStart(4, '0')}`;
+        }
+        frameId = null;
+      });
     };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (frameId !== null) cancelAnimationFrame(frameId);
+    };
   }, []);
 
   const handleContact = () => {
@@ -199,16 +213,16 @@ export default function HeroSection() {
         <div className="w-full lg:w-auto" aria-hidden="true"></div>
       </div>
 
-      <div className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 flex flex-col items-end gap-5 z-50">
+      <div className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 hidden md:flex flex-col items-end gap-5 z-50">
 
         {/* Status Bar */}
         <div
           className="flex items-center gap-4 pointer-events-none"
           style={{ opacity: 0.6 }}
         >
-          <div className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_X: {mousePos.x.toString().padStart(4, '0')}</div>
+          <div ref={posXRef} className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_X: 0000</div>
           <div className="w-px h-3" style={{ background: "var(--theme-text-label)" }} />
-          <div className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_Y: {mousePos.y.toString().padStart(4, '0')}</div>
+          <div ref={posYRef} className="text-[9px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-bold)" }}>POS_Y: 0000</div>
           <div className="w-px h-3" style={{ background: "var(--theme-text-label)" }} />
           <div className="text-[9px] tracking-[0.3em] font-mono flex items-center gap-2" style={{ color: "var(--theme-text-bold)" }}>
             SYS_STATUS:

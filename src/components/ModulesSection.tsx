@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import DecryptText from "./DecryptText";
+
 
 /* ── Brand icons (Simple Icons via react-icons) ── */
 import {
@@ -123,7 +125,7 @@ function CategoryCard({ category, index }: { category: typeof categories[0]; ind
           className="font-mono font-bold tracking-[0.12em]"
           style={{ fontSize: "18px", color: "var(--theme-text-bold)" }}
         >
-          {category.title}
+          <DecryptText text={category.title} trigger={isInView} delay={index * 100 + 150} />
         </h3>
         <span
           className="font-mono tracking-[0.15em]"

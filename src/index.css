@@ -337,7 +337,17 @@ html.light {
   background: var(--theme-scrollbar-hover);
 }
 
-/* Theme transition for all themed elements */
-*, *::before, *::after {
+/* Theme transition for specific themed elements to avoid universal selector overhead */
+body,
+nav,
+footer,
+section,
+.terminal-border,
+.card-hover,
+button,
+a,
+input,
+textarea,
+h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.7s ease, color 0.7s ease, border-color 0.7s ease, box-shadow 0.7s ease;
 }
