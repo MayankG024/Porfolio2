@@ -10,7 +10,7 @@ const posthogHost = import.meta.env.VITE_POSTHOG_HOST || "https://us.i.posthog.c
 if (posthogKey) {
   posthog.init(posthogKey, {
     api_host: posthogHost,
-    person_profiles: "identified_only",
+    person_profiles: "always",
     capture_pageview: true,
     autocapture: true,
     enable_recording_console_log: true,
