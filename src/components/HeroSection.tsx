@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import SocialButtons from "./SocialButtons";
 import { playHoverSound, playClickSound } from "@/lib/audio";
+import posthog from "posthog-js";
 
 // Language sequence: Japanese -> Chinese -> Greek -> Hindi -> Russian -> English
 const MAYANK_SEQ = ["マヤンク", "马扬克", "Μαγιανκ", "मयंक","Маянк",  "MAYANK"];
@@ -76,12 +77,14 @@ export default function HeroSection() {
 
   const handleContact = () => {
     playClickSound();
+    posthog.capture("establish_contact_clicked", { source: "hero" });
     const el = document.querySelector("#contact");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleMyWork = () => {
     playClickSound();
+    posthog.capture("my_work_clicked", { source: "hero" });
     const el = document.querySelector("#output");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };

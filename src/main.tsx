@@ -13,6 +13,7 @@ if (posthogKey) {
     person_profiles: "identified_only",
     capture_pageview: true,
     autocapture: true,
+    enable_recording_console_log: true,
   });
 }
 

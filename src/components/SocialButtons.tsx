@@ -1,6 +1,7 @@
 import { FaLinkedinIn, FaGithub, FaXTwitter } from "react-icons/fa6";
 import { Globe, Mail, FileText } from "lucide-react";
 import { playHoverSound, playClickSound } from "@/lib/audio";
+import posthog from "posthog-js";
 
 export const socialLinks = [
   { icon: <FaLinkedinIn size={19} />, href: "https://www.linkedin.com/in/mayankg02/", label: "LinkedIn Profile", name: "LinkedIn" },
@@ -23,7 +24,21 @@ export default function SocialButtons({ className = "" }: { className?: string }
             aria-label={link.label}
             download={link.download}
             onMouseEnter={playHoverSound}
-            onClick={playClickSound}
+            onClick={() => {
+              playClickSound();
+              if (link.name === "Resume") {
+                posthog.capture("resume_downloaded", {
+                  href: link.href,
+                  label: link.label,
+                });
+              } else {
+                posthog.capture("outbound_link_clicked", {
+                  platform: link.name,
+                  href: link.href,
+                  label: link.label,
+                });
+              }
+            }}
             className="relative overflow-hidden w-12 h-12 flex items-center justify-center"
             style={{
               border: "1px solid rgba(150, 150, 150, 0.2)",

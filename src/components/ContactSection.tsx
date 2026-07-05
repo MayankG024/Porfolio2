@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import posthog from "posthog-js";
 
 export default function ContactSection() {
   const ref = useRef(null);
@@ -29,6 +30,19 @@ export default function ContactSection() {
       });
 
       if (response.ok) {
+        // Link anonymous session to the contact's email identifier
+        posthog.identify(form.email, {
+          email: form.email,
+          name: form.name
+        });
+
+        // Track custom contact submission event
+        posthog.capture("contact_form_submitted", {
+          name: form.name,
+          email: form.email,
+          message_length: form.message.length
+        });
+
         setSubmitted(true);
       } else {
         console.error("Transmission failed");

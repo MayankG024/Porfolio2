@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import posthog from "posthog-js";
 
 const projects = [
   {
@@ -68,13 +69,31 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
+  const handleCardClick = () => {
+    posthog.capture("project_card_clicked", {
+      projectId: project.id,
+      title: project.title,
+      category: project.category
+    });
+  };
+
+  const handleLinkClick = (type: "live" | "github") => {
+    posthog.capture("project_link_clicked", {
+      projectId: project.id,
+      title: project.title,
+      linkType: type,
+      url: type === "live" ? project.live : project.github
+    });
+  };
+
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="terminal-border p-6 transition-all duration-300 group card-hover flex flex-col"
+      onClick={handleCardClick}
+      className="terminal-border p-6 transition-all duration-300 group card-hover flex flex-col cursor-pointer"
     >
       <div className="flex items-center justify-between mb-4">
         <span className="text-[9px] font-mono tracking-[0.25em]" style={{ color: "var(--theme-text-label)" }}>
@@ -120,6 +139,10 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             href={project.live}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLinkClick("live");
+            }}
             className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] group-hover:gap-3 transition-all duration-200"
             style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
           >
@@ -132,6 +155,10 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLinkClick("github");
+            }}
             className="inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.15em] group-hover:gap-3 transition-all duration-200"
             style={{ color: "var(--theme-text-bold)", borderBottom: "1px solid var(--theme-btn-border)" }}
           >
