@@ -26,12 +26,12 @@ const projects = [
   {
     id: "003_BLUENCORE",
     category: "E_COMMERCE",
-    title: "Bluencore Store",
+    title: "Kiara Jewellery Dubai",
     description:
-      "Shopify ecommerce implementation for an educational board and strategy games store. Built custom Liquid theme sections, app integrations, cart logic, and deployment workflows through Shopify CLI.",
+      "E-commerce store for a Luxury Jewellery Brand based out of Dubai. Built custom Liquid theme sections, app integrations, cart logic, and deployment workflows through Shopify CLI.",
     tags: ["SHOPIFY_LIQUID", "CUSTOM_APP", "ECOMMERCE"],
     github: "",
-    live: "https://bluencore-wholesale.com/",
+    live: "https://www.kiarajewellers.com/",
   },
   {
     id: "004_HEALTHYSWAP",
