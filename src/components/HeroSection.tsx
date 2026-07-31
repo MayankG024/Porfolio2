@@ -5,15 +5,15 @@ import { playHoverSound, playClickSound } from "@/lib/audio";
 import posthog from "posthog-js";
 
 // Language sequence: Japanese -> Chinese -> Greek -> Hindi -> Russian -> English
-const MAYANK_SEQ = ["マヤンク", "马扬克", "Μαγιανκ", "मयंक","Маянк",  "MAYANK"];
-const GUPTA_SEQ = ["グプタ", "古普塔",   "Γκουπτα","गुप्ता","Гупта", "GUPTA"];
+const MAYANK_SEQ = ["マヤンク", "马扬克", "Μαγιανκ", "मयंक", "Маянк", "MAYANK"];
+const GUPTA_SEQ = ["グプタ", "古普塔", "Γκουπτα", "गुप्ता", "Гупта", "GUPTA"];
 
 function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: string[]; delay?: number; interval?: number }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     let cycleInterval: ReturnType<typeof setInterval>;
-    
+
     // Wait for the initial delay before starting the cycle
     const timeout = setTimeout(() => {
       let step = 0;
@@ -140,9 +140,8 @@ export default function HeroSection() {
             className="text-sm leading-relaxed mb-4 max-w-md font-mono"
             style={{ color: "var(--theme-text-muted)", fontSize: "13px" }}
           >
-            Extracting structure from noise. With 2+ years of Designing Web applications, scalable backend
-            systems and high-performance client interfaces. Exploring the void
-            between code and aesthetic logic.
+            Extracting structure from noise. With 2+ years of Designing Web/AI applications, scalable backend
+            systems and high-performance client interfaces. My work is driven by first principles thinking and curiosity.
           </motion.p>
 
           <motion.div
@@ -164,14 +163,14 @@ export default function HeroSection() {
                 <div className="px-5 py-2.5" style={{ color: "var(--theme-text-bold)", background: "transparent" }}>
                   ESTABLISH CONTACT
                 </div>
-                <div 
+                <div
                   className="absolute left-0 top-0 bottom-0 w-0 overflow-hidden group-hover:w-full"
-                  style={{ 
+                  style={{
                     background: "var(--theme-text-bold)",
                     transition: "width 300ms cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
                 >
-                  <div 
+                  <div
                     className="flex w-max items-center h-full px-5 py-2.5"
                     style={{ color: "var(--theme-bg)" }}
                   >
@@ -191,14 +190,14 @@ export default function HeroSection() {
                 <div className="px-5 py-2.5" style={{ color: "var(--theme-cta-fg)", background: "var(--theme-cta-bg)" }}>
                   MY WORK
                 </div>
-                <div 
+                <div
                   className="absolute left-0 top-0 bottom-0 w-0 overflow-hidden group-hover:w-full"
-                  style={{ 
+                  style={{
                     background: "var(--theme-cta-fg)",
                     transition: "width 300ms cubic-bezier(0.4, 0, 0.2, 1)"
                   }}
                 >
-                  <div 
+                  <div
                     className="flex w-max items-center h-full px-5 py-2.5"
                     style={{ color: "var(--theme-cta-bg)" }}
                   >

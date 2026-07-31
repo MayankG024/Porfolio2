@@ -28,7 +28,7 @@ const projects = [
     category: "E_COMMERCE",
     title: "Kiara Jewellery Dubai",
     description:
-      "E-commerce store for a Luxury Jewellery Brand based out of Dubai. Built custom Liquid theme sections, app integrations, cart logic, and deployment workflows through Shopify CLI.",
+      "E-commerce store for a Luxury Jewellery Brand based out of Dubai. Built custom Liquid theme sections, location based app integrations, fluid animations, and deployment workflows through Shopify CLI.",
     tags: ["SHOPIFY_LIQUID", "CUSTOM_APP", "ECOMMERCE"],
     github: "",
     live: "https://www.kiarajewellers.com/",
