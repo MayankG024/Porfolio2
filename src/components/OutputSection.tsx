@@ -24,7 +24,7 @@ const projects = [
     live: "",
   },
   {
-    id: "003_BLUENCORE",
+    id: "003_KIARA",
     category: "E_COMMERCE",
     title: "Kiara Jewellery Dubai",
     description:
@@ -38,13 +38,23 @@ const projects = [
     category: "AI_NUTRITION",
     title: "Healthyswap",
     description:
-      "AI nutrition application that improves meals with OpenAI workflows, ChromaDB retrieval, TypeScript interfaces, and motion-rich UX. The system connects food context to practical meal swaps and nutrition suggestions.",
-    tags: ["TYPESCRIPT", "OPENAI", "CHROMADB", "FRAMER_MOTION"],
+      "AI nutrition application that improves meals with Gemini workflows, ChromaDB retrieval, TypeScript interfaces, and motion-rich UX. The system connects food context to practical meal swaps and nutrition suggestions.",
+    tags: ["TYPESCRIPT", "GEMINI", "CHROMADB", "FRAMER_MOTION"],
     github: "https://github.com/MayankG024/Healthyswap",
     live: "https://healthyswap-lime.vercel.app/",
   },
   {
-    id: "005_PORTFOLIO",
+    id: "005_BLUENCORE",
+    category: "E_COMMERCE",
+    title: "Bluencore USA",
+    description:
+      "E-commerce store for Educational board games brand based out of USA. Handled end to end development and delivery, Built custom Liquid theme sections, app integrations, cart and discount logic, and Auth based views for production",
+    tags: ["SHOPIFY_LIQUID", "CUSTOM_APP", "ECOMMERCE"],
+    github: "",
+    live: "https://bluencore-wholesale.com/",
+  },
+  {
+    id: "006_PORTFOLIO",
     category: "WEB_DEVELOPMENT",
     title: "Retro Portfolio",
     description:
@@ -52,16 +62,6 @@ const projects = [
     tags: ["REACT", "TYPESCRIPT", "TAILWIND"],
     github: "https://github.com/MayankG024/Portfolio-website",
     live: "https://mynk.site",
-  },
-  {
-    id: "006_WORKLIFE",
-    category: "WEB_APP",
-    title: "Worklife Desks",
-    description:
-      "Workplace management application built with Vite, Zustand, Sonner, and Resend. The app organizes desk workflows, operational state, notification feedback, and email-driven communication for office teams.",
-    tags: ["VITE", "ZUSTAND", "RESEND", "WEB_APP"],
-    github: "https://github.com/MayankG024/worklife-desks",
-    live: "",
   },
 ];
 
