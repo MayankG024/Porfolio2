@@ -17,8 +17,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     return "dark";
   });
   const isAnimating = useRef(false);
+  const themeRef = useRef(theme);
 
   useEffect(() => {
+    themeRef.current = theme;
     const root = document.documentElement;
     if (theme === "light") {
       root.classList.add("light");
@@ -32,7 +34,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (isAnimating.current) return;
     isAnimating.current = true;
 
-    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+    // Keep the source of truth current even if mobile rendering is delayed
+    // between two taps near the end of the transition lockout.
+    const nextTheme: Theme = themeRef.current === "dark" ? "light" : "dark";
+    themeRef.current = nextTheme;
     const tintColor = nextTheme === "light"
       ? "rgba(255, 255, 255, 0.18)"
       : "rgba(0, 0, 0, 0.18)";
@@ -48,22 +53,30 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       clip-path: circle(0% at 50% 50%);
+      transition: clip-path 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-out;
       will-change: clip-path, opacity;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      contain: paint;
     `;
     document.body.appendChild(overlay);
+
+    // Commit the initial clip state before changing the theme. This prevents
+    // mobile browsers from coalescing the first and last animation frames.
+    void overlay.offsetWidth;
 
     // Switch theme immediately so elements morph underneath
     setTheme(nextTheme);
 
     // Expand the frosted circle slowly from center
     requestAnimationFrame(() => {
-      overlay.style.transition = "clip-path 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
       overlay.style.clipPath = "circle(150% at 50% 50%)";
     });
 
     // Fade out the overlay after it has fully expanded
     setTimeout(() => {
-      overlay.style.transition = "opacity 0.3s ease-out";
       overlay.style.opacity = "0";
     }, 650);
 
@@ -72,7 +85,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       overlay.remove();
       isAnimating.current = false;
     }, 1000);
-  }, [theme]);
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
