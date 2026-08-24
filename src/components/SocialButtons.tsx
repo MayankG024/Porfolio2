@@ -7,7 +7,7 @@ export const socialLinks = [
   { icon: <FaLinkedinIn size={19} />, href: "https://www.linkedin.com/in/mayankg02/", label: "LinkedIn Profile", name: "LinkedIn" },
   { icon: <FaGithub size={19} />, href: "https://github.com/MayankG024", label: "GitHub Profile", name: "GitHub" },
   { icon: <FaXTwitter size={19} />, href: "https://x.com/MayankG024", label: "X (Twitter) Profile", name: "Twitter" },
-  { icon: <Globe size={19} />, href: "https://mynk.site", label: "Personal Website", name: "My Blog Website!" },
+  { icon: <Globe size={19} />, href: "https://blog.maynk.me/", label: "Personal Website", name: "My Blog Website!" },
   { icon: <Mail size={19} />, href: "mailto:mayankynr24@gmail.com", label: "Email Contact", name: "Email" },
   { icon: <FileText size={19} />, href: "/Mayank_Gupta_Resume.pdf", label: "Resume Download", download: true, name: "Resume" },
 ];
