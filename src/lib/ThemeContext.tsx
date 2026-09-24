@@ -23,9 +23,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     themeRef.current = theme;
     const root = document.documentElement;
     if (theme === "light") {
-      root.classList.add("light");
+      if (!root.classList.contains("light")) root.classList.add("light");
     } else {
-      root.classList.remove("light");
+      if (root.classList.contains("light")) root.classList.remove("light");
     }
     localStorage.setItem("theme", theme);
   }, [theme]);
@@ -55,19 +55,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       clip-path: circle(0% at 50% 50%);
       transition: clip-path 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-out;
       will-change: clip-path, opacity;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      contain: paint;
     `;
     document.body.appendChild(overlay);
 
-    // Commit the initial clip state before changing the theme. This prevents
-    // mobile browsers from coalescing the first and last animation frames.
+    // Commit the initial clip state on the isolated overlay element before theme styles change.
+    // This prevents mobile browsers from coalescing the initial and animated frames.
     void overlay.offsetWidth;
 
-    // Switch theme immediately so elements morph underneath
+    // Apply the theme class to the document root immediately and synchronously.
+    // This ensures all CSS variables and themed element transitions trigger in the
+    // exact same frame as the overlay animation, eliminating the delay/glitch on mobile.
+    const root = document.documentElement;
+    if (nextTheme === "light") {
+      root.classList.add("light");
+    } else {
+      root.classList.remove("light");
+    }
+    localStorage.setItem("theme", nextTheme);
+
+    // Switch React theme state for components that need it (GalaxyBackground, icons)
     setTheme(nextTheme);
 
     // Expand the frosted circle slowly from center

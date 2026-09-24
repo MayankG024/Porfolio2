@@ -174,7 +174,6 @@ function ThemeToggleButton() {
 }
 
 export default function Navbar() {
-  useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleClick = (href: string) => {

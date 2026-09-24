@@ -1,12 +1,13 @@
 import { useRef, useMemo, useEffect, useState, useCallback } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "@/lib/ThemeContext";
 
 interface GalaxyProps {
   scrollY: number;
   mouseX: number;
   mouseY: number;
-  theme: "dark" | "light";
+  theme?: "dark" | "light";
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -395,7 +396,9 @@ function FallbackBackground() {
   );
 }
 
-export default function GalaxyBackground({ scrollY, mouseX, mouseY, theme }: GalaxyProps) {
+export default function GalaxyBackground({ scrollY, mouseX, mouseY, theme: propTheme }: GalaxyProps) {
+  const { theme: contextTheme } = useTheme();
+  const theme = propTheme ?? contextTheme;
   const [webglFailed, setWebglFailed] = useState(false);
 
   useEffect(() => {

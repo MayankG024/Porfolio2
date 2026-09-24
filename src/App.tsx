@@ -1,5 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from "react";
-import { ThemeProvider, useTheme } from "@/lib/ThemeContext";
+import { ThemeProvider } from "@/lib/ThemeContext";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -19,7 +19,6 @@ function AppContent() {
   const [scrollY, setScrollY] = useState(0);
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -47,7 +46,7 @@ function AppContent() {
   return (
     <div className="relative min-h-screen">
       <StructuredData />
-      <GalaxyBackground scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} theme={theme} />
+      <GalaxyBackground scrollY={scrollY} mouseX={mouseX} mouseY={mouseY} />
 
       <div
         className="fixed inset-0 z-[1] pointer-events-none grid-overlay"
