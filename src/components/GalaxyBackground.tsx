@@ -424,14 +424,27 @@ export default function GalaxyBackground({ scrollY, mouseX, mouseY, theme: propT
         <ShootingStars mouseX={mouseX} mouseY={mouseY} theme={theme} />
       </Canvas>
 
-      {/* Soft edge vignette */}
+      {/* Soft edge vignette (cross-faded over 0.7s to prevent sudden color snap) */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           background:
-            `radial-gradient(ellipse 75% 60% at 60% 52%, transparent 25%, var(--theme-vignette) 65%, var(--theme-vignette-edge) 100%)`,
+            `radial-gradient(ellipse 75% 60% at 60% 52%, transparent 25%, rgba(9, 9, 9, 0.45) 65%, rgba(9, 9, 9, 0.82) 100%)`,
           pointerEvents: "none",
+          opacity: theme === "dark" ? 1 : 0,
+          transition: "opacity 0.7s ease",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            `radial-gradient(ellipse 75% 60% at 60% 52%, transparent 25%, rgba(255, 255, 255, 0.45) 65%, rgba(255, 255, 255, 0.82) 100%)`,
+          pointerEvents: "none",
+          opacity: theme === "light" ? 1 : 0,
+          transition: "opacity 0.7s ease",
         }}
       />
     </div>

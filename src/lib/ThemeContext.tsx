@@ -43,19 +43,41 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       : "rgba(0, 0, 0, 0.18)";
 
     // Glassmorphic circle overlay — expands from center
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     const overlay = document.createElement("div");
-    overlay.style.cssText = `
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      pointer-events: none;
-      background: ${tintColor};
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      clip-path: circle(0% at 50% 50%);
-      transition: clip-path 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-out;
-      will-change: clip-path, opacity;
-    `;
+
+    if (!isMobile) {
+      // Desktop: Rich glassmorphic frosted blur circle (fully preserved and unaffected)
+      overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        pointer-events: none;
+        background: ${tintColor};
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        clip-path: circle(0% at 50% 50%);
+        transition: clip-path 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-out;
+        will-change: clip-path, opacity;
+      `;
+    } else {
+      // Mobile: Hardware-composited expanding radial circle without heavy framebuffer readbacks.
+      // Eliminates the GPU stall and dark Skia edge clipping artifacts on mobile screens.
+      const mobileBackground = nextTheme === "light"
+        ? "radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 70%, transparent 100%)"
+        : "radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%)";
+
+      overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        pointer-events: none;
+        background: ${mobileBackground};
+        clip-path: circle(0% at 50% 50%);
+        transition: clip-path 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-out;
+        will-change: clip-path, opacity;
+      `;
+    }
     document.body.appendChild(overlay);
 
     // Commit the initial clip state on the isolated overlay element before theme styles change.
