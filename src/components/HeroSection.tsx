@@ -8,7 +8,7 @@ import posthog from "posthog-js";
 const MAYANK_SEQ = ["マヤンク", "马扬克", "Μαγιανκ", "मयंक", "Маянк", "MAYANK"];
 const GUPTA_SEQ = ["グプタ", "古普塔", "Γκουπτα", "गुप्ता", "Гупта", "GUPTA"];
 
-function TranslationCycle({ sequence, delay = 0, interval = 450 }: { sequence: string[]; delay?: number; interval?: number }) {
+function TranslationCycle({ sequence, delay = 300, interval = 800 }: { sequence: string[]; delay?: number; interval?: number }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -121,9 +121,9 @@ export default function HeroSection() {
                 color: "var(--theme-text-bold)",
               }}
             >
-              <TranslationCycle sequence={MAYANK_SEQ} delay={600} interval={350} />
+              <TranslationCycle sequence={MAYANK_SEQ} delay={800} interval={450} />
               <br />
-              <TranslationCycle sequence={GUPTA_SEQ} delay={600} interval={350} />
+              <TranslationCycle sequence={GUPTA_SEQ} delay={800} interval={450} />
             </h1>
             <div
               className="font-mono font-semibold tracking-[0.15em] mb-8 uppercase"
