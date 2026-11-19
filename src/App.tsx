@@ -87,6 +87,9 @@ function AppContent() {
           <HeroSection />
 
           <Suspense fallback={null}>
+            {/* part of IDENTITY: hero + how I build */}
+            <ProcessSection />
+
             <Divider />
 
             <ModulesSection />
@@ -96,10 +99,6 @@ function AppContent() {
             <Divider />
 
             <OutputSection />
-
-            <Divider />
-
-            <ProcessSection />
 
             <Divider />
 

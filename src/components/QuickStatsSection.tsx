@@ -25,8 +25,8 @@ export default function QuickStatsSection() {
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+              animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="flex flex-col items-center justify-center py-4 px-2 card-hover"
               style={{

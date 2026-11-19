@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import SocialButtons from "./SocialButtons";
 import AsciiPortrait from "./AsciiPortrait";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import { playHoverSound, playClickSound } from "@/lib/audio";
 import posthog from "posthog-js";
 
@@ -52,6 +53,7 @@ function TranslationCycle({ sequence, delay = 300, interval = 800 }: { sequence:
 }
 
 export default function HeroSection() {
+  const wide = useMediaQuery("(min-width: 1024px)");
   const posXRef = useRef<HTMLDivElement>(null);
   const posYRef = useRef<HTMLDivElement>(null);
 
@@ -98,18 +100,18 @@ export default function HeroSection() {
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex items-center gap-3 mb-6"
           >
             <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
-            <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_01 // INIT</span>
+            <span className="text-[11.5px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}> // INIT</span>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <h1
@@ -135,8 +137,8 @@ export default function HeroSection() {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-sm leading-relaxed mb-4 max-w-md font-mono"
             style={{ color: "var(--theme-text-muted)", fontSize: "13px" }}
@@ -146,10 +148,10 @@ export default function HeroSection() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col gap-8 w-full mb-10"
+            className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-12 w-full lg:w-[calc(200%+5rem)] mb-10"
           >
             <div className="flex flex-wrap gap-3">
               <button
@@ -208,18 +210,33 @@ export default function HeroSection() {
               </button>
             </div>
 
-            <SocialButtons />
+            {/* desktop: the portrait sits directly above the social row, right-aligned with it */}
+            <div className="relative">
+              {wide && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                  className="absolute bottom-full right-0 w-full mb-4"
+                >
+                  <AsciiPortrait />
+                </motion.div>
+              )}
+              <SocialButtons />
+            </div>
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.97, filter: "blur(6px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.23, 1, 0.32, 1] }}
-          className="w-full pb-16 lg:pb-0"
-        >
-          <AsciiPortrait />
-        </motion.div>
+        {!wide && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="w-full max-w-[min(80vw,380px)] mx-auto pb-16"
+          >
+            <AsciiPortrait />
+          </motion.div>
+        )}
       </div>
 
       <div className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 hidden md:flex flex-col items-end gap-5 z-50">

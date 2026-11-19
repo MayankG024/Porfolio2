@@ -12,8 +12,8 @@ function WritingRow({ w, index, show }: { w: Writing; index: number; show: boole
 
   return (
     <motion.li
-      initial={{ opacity: 0, y: 12 }}
-      animate={show ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+      animate={show ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
       transition={{ duration: 0.45, delay: [0, 0.05, 0.09, 0.12][index] ?? 0.14, ease: [0.23, 1, 0.32, 1] }}
       style={{ borderTop: "1px solid var(--theme-border-faint)" }}
     >
@@ -26,22 +26,30 @@ function WritingRow({ w, index, show }: { w: Writing; index: number; show: boole
           playHoverSound();
         }}
         onClick={() => posthog.capture("writing_clicked", { title: w.title })}
-        className="writing-row grid grid-cols-[1fr_auto] md:grid-cols-[7.5rem_1fr_auto] gap-x-6 gap-y-2 items-baseline px-4 py-6 -mx-4"
+        className="writing-row relative grid grid-cols-[2.5rem_1fr] md:grid-cols-[3.5rem_1fr_auto] gap-x-4 md:gap-x-8 items-start px-4 py-7 -mx-4"
       >
-        <span className="text-[10px] font-mono tracking-[0.25em] tabular-nums col-span-2 md:col-span-1" style={{ color: "var(--theme-text-label)" }}>
-          {w.date}
+        {/* index carries the order; meta sits above the title so the title leads */}
+        <span className="font-mono tabular-nums pt-6" style={{ color: "var(--theme-text-faint)", fontSize: "clamp(0.95rem, 1.4vw, 1.15rem)" }}>
+          {String(index + 1).padStart(2, "0")}
         </span>
         <span className="min-w-0">
-          <span className="block font-mono font-bold tracking-tight mb-1.5" style={{ color: "var(--theme-text-bold)", fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)" }}>
+          <span className="flex items-center gap-2 text-[10.5px] font-mono tracking-[0.22em] tabular-nums mb-2.5" style={{ color: "var(--theme-text-label)" }}>
+            {w.date}
+            <span aria-hidden="true" style={{ color: "var(--theme-text-faint)" }}>·</span>
+            {w.readTime} READ
+          </span>
+          <span className="writing-row__title block font-mono font-bold tracking-tight leading-snug mb-2" style={{ color: "var(--theme-text-bold)", fontSize: "clamp(1.05rem, 2vw, 1.35rem)" }}>
             {pass ? <DecryptText key={pass} text={w.title} trigger /> : w.title}
           </span>
-          <span className="block font-mono leading-relaxed max-w-[62ch]" style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}>
+          <span className="block font-mono leading-relaxed max-w-[60ch]" style={{ color: "var(--theme-text-muted)", fontSize: "13.5px" }}>
             {w.summary}
           </span>
         </span>
-        <span className="text-[10px] font-mono tracking-[0.2em] whitespace-nowrap flex items-center gap-3" style={{ color: "var(--theme-text-label)" }}>
-          {w.readTime}
-          <span className="writing-row__arrow inline-block" aria-hidden="true">-&gt;</span>
+        <span
+          className="writing-row__cta hidden md:flex self-center items-center gap-2 px-3 py-2 text-[10px] font-mono tracking-[0.25em] whitespace-nowrap"
+          style={{ color: "var(--theme-text-mid)", border: "1px solid var(--theme-border-faint)" }}
+        >
+          READ <span className="writing-row__arrow inline-block" aria-hidden="true">-&gt;</span>
         </span>
       </a>
     </motion.li>
@@ -55,9 +63,9 @@ export default function WritingsSection() {
   return (
     <section id="writings" className="relative py-24 px-6 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <SectionLabel text="SEQ_07 // SYS.WRITINGS" />
+        <SectionLabel text="SEQ_06 // WRITINGS" />
 
-        <ul ref={ref} className="max-w-4xl" style={{ borderBottom: "1px solid var(--theme-border-faint)" }}>
+        <ul ref={ref} className="max-w-5xl" style={{ borderBottom: "1px solid var(--theme-border-faint)" }}>
           {writings.map((w, i) => (
             <WritingRow key={w.url} w={w} index={i} show={show} />
           ))}

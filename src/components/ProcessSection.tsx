@@ -11,9 +11,9 @@ export default function ProcessSection() {
   const onScreen = useInView(ref);
 
   return (
-    <section id="process" className="relative py-24 px-6 md:px-8 lg:px-16">
+    <section id="process" className="relative pt-10 pb-24 px-6 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <SectionLabel text="SEQ_04 // SYS.HOW_I_BUILD" />
+        <SectionLabel text="SEQ_01 // HOW_I_BUILD" />
 
         <div ref={ref} style={{ "--packet-state": onScreen ? "running" : "paused" } as React.CSSProperties}>
           {/* connector with a single travelling packet (desktop) */}
@@ -25,8 +25,8 @@ export default function ProcessSection() {
             {processSteps.map((step, i) => (
               <motion.li
                 key={step.code}
-                initial={{ opacity: 0, y: 16 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+                animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.5, delay: STAGGER[i] ?? i * 0.04, ease: [0.23, 1, 0.32, 1] }}
                 className="terminal-border card-hover p-6 flex flex-col"
               >
@@ -41,7 +41,7 @@ export default function ProcessSection() {
                 <h3 className="font-mono font-bold tracking-[0.08em] mb-3" style={{ color: "var(--theme-text-bold)", fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)" }}>
                   {step.title}
                 </h3>
-                <p className="font-mono leading-relaxed" style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}>
+                <p className="font-mono leading-relaxed" style={{ color: "var(--theme-text-muted)", fontSize: "13px" }}>
                   {step.body}
                 </p>
               </motion.li>

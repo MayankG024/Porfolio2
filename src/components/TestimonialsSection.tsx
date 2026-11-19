@@ -2,54 +2,40 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { testimonials, type Testimonial } from "@/data/testimonials";
 import SectionLabel from "./SectionLabel";
+import { MdFace3, MdFace6 } from "react-icons/md";
 
-// Line-art placeholder busts, drawn in the current text colour.
-function AvatarBust({ kind }: { kind: Testimonial["avatar"] }) {
-  return (
-    <svg viewBox="0 0 40 40" width="100%" height="100%" fill="none" stroke="currentColor" strokeWidth="1.25" aria-hidden="true">
-      {kind === "female" ? (
-        <>
-          <path d="M12.5 22c-1-3-1.2-6.5.2-9.4C14.2 9.4 17 8 20 8s5.8 1.4 7.3 4.6c1.4 2.9 1.2 6.4.2 9.4" />
-          <circle cx="20" cy="16" r="5.5" />
-          <path d="M13 22.5c1.6 1.3 3.2 1.6 4.4 1.4M27 22.5c-1.6 1.3-3.2 1.6-4.4 1.4" />
-          <path d="M8 38c.8-6.5 5.6-10.5 12-10.5S31.2 31.5 32 38" />
-        </>
-      ) : (
-        <>
-          <circle cx="20" cy="16" r="6" />
-          <path d="M14.2 14.3c.9-3.4 3.2-5.3 5.8-5.3 2.9 0 5.2 1.8 5.9 5.1-2.4-1.2-6.8-1.6-11.7.2Z" />
-          <path d="M7 38c.9-7 6-11 13-11s12.1 4 13 11" />
-        </>
-      )}
-    </svg>
-  );
-}
+// Placeholder avatars: Material face glyphs, distinct silhouettes for male / female.
+const AVATAR = { male: MdFace6, female: MdFace3 } as const;
 
 function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const pending = !testimonial.quote;
+  const Icon = AVATAR[testimonial.avatar];
 
   return (
     <motion.figure
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+      animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
       transition={{ duration: 0.5, delay: [0, 0.06, 0.1][index % 3], ease: [0.23, 1, 0.32, 1] }}
       className="terminal-border p-6 card-hover flex flex-col"
     >
       <div className="mb-4" style={{ color: "var(--theme-quote-mark)", fontSize: "2rem", fontFamily: "serif", lineHeight: 1 }}>
         "
       </div>
-      <blockquote className="text-xs font-mono leading-relaxed mb-6 italic flex-1" style={{ color: "var(--theme-text-muted)", fontSize: "12px" }}>
+      <blockquote className="text-xs font-mono leading-relaxed mb-6 italic flex-1" style={{ color: "var(--theme-text-muted)", fontSize: "13px" }}>
         {pending ? <span className="not-italic tracking-[0.2em]" style={{ color: "var(--theme-text-faint)" }}>[ AWAITING_TRANSMISSION — fill src/data/testimonials.ts ]</span> : `"${testimonial.quote}"`}
       </blockquote>
       <figcaption className="flex items-center gap-3">
-        <div className="corner-bracket shrink-0 w-10 h-10 p-1 overflow-hidden" style={{ color: "var(--theme-text-dim)", background: "var(--theme-btn-hover)" }}>
+        <div
+          className="corner-bracket shrink-0 w-11 h-11 flex items-center justify-center overflow-hidden"
+          style={{ color: "var(--theme-text)", background: "var(--theme-btn-hover)", border: "1px solid var(--theme-border)" }}
+        >
           {testimonial.photo ? (
             <img src={testimonial.photo} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
           ) : (
-            <AvatarBust kind={testimonial.avatar} />
+            <Icon size={30} aria-hidden="true" />
           )}
         </div>
         <div>
@@ -72,7 +58,7 @@ export default function TestimonialsSection() {
   return (
     <section id="eval" className="relative py-24 px-6 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <SectionLabel text="SEQ_06 // SYS.EVAL" />
+        <SectionLabel text="SEQ_05 // EVAL" />
 
         {visible.length ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

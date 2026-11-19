@@ -61,9 +61,9 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           className="w-full border p-8 md:p-12 lg:p-16 card-hover"
           style={{
             borderColor: "var(--theme-border-dim)",
@@ -71,7 +71,7 @@ export default function ContactSection() {
         >
           <div className="flex items-center gap-3 mb-12">
             <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
-            <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_08 // SYS.CONNECT</span>
+            <span className="text-[11.5px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}> // CONNECT</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
@@ -80,9 +80,18 @@ export default function ContactSection() {
                 className="font-mono font-black leading-[0.95] mb-6 uppercase tracking-tight"
                 style={{ fontSize: "clamp(2rem, 6vw, 4rem)", color: "var(--theme-text-bold)" }}
               >
-                Establish
-                <br />
-                Contact_
+                {/* word-by-word blur-in (Magic UI text-animate "blurInUp") */}
+                {["Establish", "Contact_"].map((word, i) => (
+                  <motion.span
+                    key={word}
+                    className="block"
+                    initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
+                    animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+                    transition={{ duration: 0.45, delay: 0.15 + i * 0.08, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
               </h2>
               <p className="text-sm font-mono leading-relaxed mb-8 max-w-lg" style={{ color: "var(--theme-text-muted)" }}>
                 OPEN TO NEW PROJECTS AND COLLABORATIONS. Reach out if you have

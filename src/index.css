@@ -55,11 +55,11 @@
   --theme-bg: #090909;
   --theme-text: #e8e8e8;
   --theme-text-bold: #ffffff;
-  --theme-text-dim: rgba(255, 255, 255, 0.35);
+  --theme-text-dim: rgba(255, 255, 255, 0.45);
   --theme-text-mid: rgba(255, 255, 255, 0.6);
-  --theme-text-muted: rgba(255, 255, 255, 0.45);
-  --theme-text-label: rgba(255, 255, 255, 0.3);
-  --theme-text-faint: rgba(255, 255, 255, 0.2);
+  --theme-text-muted: rgba(255, 255, 255, 0.62);
+  --theme-text-label: rgba(255, 255, 255, 0.42);
+  --theme-text-faint: rgba(255, 255, 255, 0.28);
   --theme-text-link: rgba(255, 255, 255, 0.5);
   --theme-text-nav: rgba(255, 255, 255, 0.55);
 
@@ -127,10 +127,10 @@ html.light {
   --theme-bg: #ffffff;
   --theme-text: #1a1a1a;
   --theme-text-bold: #000000;
-  --theme-text-dim: rgba(0, 0, 0, 0.4);
+  --theme-text-dim: rgba(0, 0, 0, 0.5);
   --theme-text-mid: rgba(0, 0, 0, 0.55);
-  --theme-text-muted: rgba(0, 0, 0, 0.5);
-  --theme-text-label: rgba(0, 0, 0, 0.4);
+  --theme-text-muted: rgba(0, 0, 0, 0.64);
+  --theme-text-label: rgba(0, 0, 0, 0.5);
   --theme-text-faint: rgba(0, 0, 0, 0.25);
   --theme-text-link: rgba(0, 0, 0, 0.55);
   --theme-text-nav: rgba(0, 0, 0, 0.55);
@@ -356,6 +356,12 @@ h1, h2, h3, h4, h5, h6 {
 :root {
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --theme-glow: rgba(255, 255, 255, 0.35);
+  --theme-glow-soft: rgba(255, 255, 255, 0.06);
+}
+html.light {
+  --theme-glow: rgba(0, 0, 0, 0.18);
+  --theme-glow-soft: rgba(0, 0, 0, 0.04);
 }
 
 /* Hero portrait: photo revealed through a cursor spotlight (vars set from JS) */
@@ -363,8 +369,10 @@ h1, h2, h3, h4, h5, h6 {
   --r: 0px;
   --mx: 50%;
   --my: 40%;
-  -webkit-mask-image: radial-gradient(circle at var(--mx) var(--my), #000 calc(var(--r) - 44px), transparent var(--r));
-  mask-image: radial-gradient(circle at var(--mx) var(--my), #000 calc(var(--r) - 44px), transparent var(--r));
+  -webkit-mask-image: radial-gradient(circle at var(--mx) var(--my), #000 calc(var(--r) - 72px), transparent var(--r));
+  mask-image: radial-gradient(circle at var(--mx) var(--my), #000 calc(var(--r) - 72px), transparent var(--r));
+  /* muted reveal: the photo should feel like a signal resolving, not a colour pop */
+  filter: saturate(0.45) contrast(0.88) brightness(0.9);
 }
 .ascii-portrait:focus-visible {
   outline: 1px solid var(--theme-corner);
@@ -467,21 +475,73 @@ button:active {
   100% { left: calc(100% - 5px); opacity: 0; }
 }
 
-/* Writings rows */
-.writing-row {
-  transition: background-color 250ms ease;
+/* Scroll-rail Starship */
+.starship { transition: none; } /* motion drives its transform; a CSS transition would lag every frame */
+.starship__flap {
+  transform-box: fill-box;
+  transition: transform 280ms var(--ease-out-strong);
 }
+.starship__flap--l { transform-origin: right top; }
+.starship__flap--r { transform-origin: left top; }
+.starship[data-dir="down"] .starship__flap--l { transform: rotate(40deg); }
+.starship[data-dir="down"] .starship__flap--r { transform: rotate(-40deg); }
+.starship[data-dir="down"] .starship__flap--aft.starship__flap--l { transform: rotate(25deg); }
+.starship[data-dir="down"] .starship__flap--aft.starship__flap--r { transform: rotate(-25deg); }
+.starship__plume {
+  transform-box: fill-box;
+  transform-origin: center top;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform 180ms var(--ease-out-strong), opacity 180ms ease;
+}
+.starship[data-thrust="true"] .starship__plume {
+  opacity: 0.85;
+  transform: scaleY(1);
+  animation: plume-flicker 110ms steps(2) infinite alternate;
+}
+@keyframes plume-flicker {
+  from { transform: scaleY(0.72); }
+  to { transform: scaleY(1); }
+}
+.starship:focus-visible { outline: 1px solid var(--theme-corner); outline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) {
-  .writing-row:hover {
-    background-color: var(--theme-card-hover);
-  }
-  .writing-row:hover .writing-row__arrow {
-    transform: translateX(4px);
-    color: var(--theme-text-bold);
-  }
+  .starship:hover svg { stroke: var(--theme-text-bold); }
+}
+
+/* Writings rows: a soft light pools at the row's left edge and the title picks up a glow on hover */
+.writing-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 120% at 0% 50%, var(--theme-glow-soft), transparent 70%);
+  opacity: 0;
+  transition: opacity 350ms var(--ease-out-strong);
+}
+.writing-row__title {
+  transition: text-shadow 350ms var(--ease-out-strong);
+}
+.writing-row__cta {
+  transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
 }
 .writing-row__arrow {
-  transition: transform 200ms var(--ease-out-strong), color 200ms ease;
+  transition: transform 200ms var(--ease-out-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .writing-row:hover::before { opacity: 1; }
+  .writing-row:hover .writing-row__title { text-shadow: 0 0 18px var(--theme-glow); }
+  .writing-row:hover .writing-row__cta {
+    color: var(--theme-text-bold);
+    border-color: var(--theme-border);
+    background-color: var(--theme-btn-hover);
+  }
+  .writing-row:hover .writing-row__arrow { transform: translateX(4px); }
+}
+.more-work { transition: border-color 250ms ease, background-color 250ms ease; }
+.more-work__arrow { transition: transform 200ms var(--ease-out-strong); }
+@media (hover: hover) and (pointer: fine) {
+  .more-work:hover { border-color: var(--theme-text-mid) !important; background-color: var(--theme-btn-hover); }
+  .more-work:hover .more-work__arrow { transform: translateX(4px); }
 }
 a:focus-visible,
 button:focus-visible {
@@ -494,6 +554,7 @@ button:focus-visible {
   .divider-scan::after,
   .project-media::after,
   .packet-track__dot,
+  .starship__plume,
   .blink {
     animation: none !important;
   }

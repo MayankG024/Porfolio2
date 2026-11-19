@@ -19,7 +19,6 @@ export default function AsciiPortrait() {
   const imgRef = useRef<HTMLImageElement>(null);
   const gridRef = useRef<{ cells: Cell[]; cols: number; rows: number; cw: number; ch: number; color: string } | null>(null);
   const [ready, setReady] = useState(false);
-  const [isTouch] = useState(() => typeof window !== "undefined" && window.matchMedia("(hover: none)").matches);
 
   const radius = useSpring(0, { stiffness: 140, damping: 22 });
   const mx = useSpring(0, { stiffness: 320, damping: 32 });
@@ -154,7 +153,7 @@ export default function AsciiPortrait() {
       for (let i = 0; i < n * 0.008; i++) pick((Math.random() * n) | 0);
       const p = pointer.get();
       if (hovering.current && p.x > 0) {
-        const ring = radius.get() + 36;
+        const ring = radius.get() + 20;
         for (let i = 0; i < 40; i++) {
           const t = Math.random() * Math.PI * 2;
           const r = ring - Math.random() * 30;
@@ -176,8 +175,8 @@ export default function AsciiPortrait() {
     if (!ready || reduce) return;
     const wrap = wrapRef.current!;
     const { width, height } = wrap.getBoundingClientRect();
-    mx.jump(width * 0.5);
-    my.jump(height * 0.4);
+    mx.jump(0); // intro glow blooms from the left edge
+    my.jump(height * 0.45);
     let ctrl: ReturnType<typeof animate> | undefined;
     const t = window.setTimeout(() => {
       if (hovering.current) return;
@@ -186,7 +185,7 @@ export default function AsciiPortrait() {
         ease: [0.77, 0, 0.175, 1],
         onUpdate: (v) => {
           if (hovering.current || revealed.current) return;
-          radius.set(Math.sin(v * Math.PI) * width * 0.32);
+          radius.set(Math.sin(v * Math.PI) * width * 0.45);
         },
       });
     }, 1400);
@@ -216,7 +215,7 @@ export default function AsciiPortrait() {
     hovering.current = true;
     mx.jump(p.x);
     my.jump(p.y);
-    radius.set(p.w * 0.3);
+    radius.set(p.w * 0.5);
   };
 
   const onLeave = (e: React.PointerEvent) => {
@@ -236,7 +235,7 @@ export default function AsciiPortrait() {
   };
 
   return (
-    <figure className="relative w-full max-w-[min(78vw,440px)] mx-auto lg:ml-auto lg:mr-0 select-none">
+    <figure className="relative w-full select-none">
       <div
         ref={wrapRef}
         role="button"
@@ -254,7 +253,7 @@ export default function AsciiPortrait() {
             toggle();
           }
         }}
-        className="ascii-portrait corner-bracket relative aspect-[4/5] overflow-hidden outline-none cursor-crosshair"
+        className="ascii-portrait corner-bracket relative aspect-[9/10] overflow-hidden outline-none cursor-crosshair"
         style={{ border: "1px solid var(--theme-border-faint)", background: "var(--theme-bg)" }}
       >
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" aria-hidden="true" />
@@ -263,7 +262,7 @@ export default function AsciiPortrait() {
           src={SRC}
           alt=""
           width={800}
-          height={1000}
+          height={888}
           fetchPriority="high"
           decoding="async"
           className="ascii-portrait__photo absolute inset-0 w-full h-full object-cover"
@@ -273,17 +272,6 @@ export default function AsciiPortrait() {
         </noscript>
       </div>
 
-      <figcaption
-        className="absolute left-3 bottom-3 px-3 py-2 font-mono pointer-events-none"
-        style={{ background: "var(--theme-nav-bg)", border: "1px solid var(--theme-border-faint)" }}
-      >
-        <div className="text-[10px] tracking-[0.25em]" style={{ color: "var(--theme-text-bold)" }}>
-          SUBJECT_01 // M.GUPTA
-        </div>
-        <div className="text-[9px] tracking-[0.25em] mt-1" style={{ color: "var(--theme-text-label)" }}>
-          {isTouch ? "TAP" : "HOVER"} TO DECODE · ASCII → RGB
-        </div>
-      </figcaption>
     </figure>
   );
 }

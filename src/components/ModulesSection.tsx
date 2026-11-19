@@ -115,8 +115,8 @@ function CategoryCard({ category, index }: { category: typeof categories[0]; ind
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+      animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
       transition={{ duration: 0.45, delay: index * 0.1 }}
       className="terminal-border p-6 flex flex-col card-hover"
     >
@@ -168,7 +168,7 @@ export default function ModulesSection() {
   return (
     <section id="modules" className="relative pt-24 pb-12 px-6 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <SectionLabel text="SEQ_02 // SYS.SKILLS" />
+        <SectionLabel text="SEQ_02 // SKILLS" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {categories.map((cat, i) => (

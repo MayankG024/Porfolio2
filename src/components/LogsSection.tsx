@@ -5,43 +5,70 @@ import { useMediaQuery } from "@/lib/useMediaQuery";
 import SectionLabel from "./SectionLabel";
 import DecryptText from "./DecryptText";
 
-const LABEL = "SEQ_05 // SYS.EXPERIENCE";
-const CARD_W = 400;
+const LABEL = "SEQ_04 // EXPERIENCE";
+const CARD_W = 380;
 const GAP = 32;
 const MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 const stamp = (start: string) => `${MONTHS[Number(start.slice(5, 7)) - 1]} ${start.slice(0, 4)}`;
 
-function ExperienceCard({ exp, className = "", style }: { exp: Experience; className?: string; style?: React.CSSProperties }) {
+function ExperienceCard({ exp, lit = true, className = "", style }: { exp: Experience; lit?: boolean; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={`p-6 rounded-sm border card-hover ${className}`} style={{ borderColor: "var(--theme-border-faint)", ...style }}>
-      <div className="flex flex-wrap items-baseline gap-3 mb-1">
-        <h4 className="text-base font-mono font-bold tracking-[0.05em]" style={{ color: "var(--theme-text-bold)" }}>
-          {exp.title}
-        </h4>
+    <div className={`p-6 rounded-sm border card-hover flex flex-col ${className}`} style={{ borderColor: "var(--theme-border-faint)", ...style }}>
+      {/* company row: logo + name carry the identity, role sits under it as the headline */}
+      <div className="flex items-center gap-3 mb-5">
+        <img
+          src={exp.logo}
+          alt=""
+          width={40}
+          height={40}
+          loading="lazy"
+          decoding="async"
+          className="w-10 h-10 shrink-0 object-cover"
+          style={{
+            border: "1px solid var(--theme-border-faint)",
+            filter: lit ? "none" : "grayscale(1)",
+            opacity: lit ? 1 : 0.7,
+            transition: "filter 450ms var(--ease-out-strong), opacity 450ms var(--ease-out-strong)",
+          }}
+        />
+        <div className="min-w-0 flex-1">
+          <div className="text-[13px] font-mono font-bold tracking-[0.12em] uppercase truncate" style={{ color: "var(--theme-text-bold)" }}>
+            {exp.company}
+          </div>
+          <div className="text-[10px] font-mono tracking-[0.12em] mt-0.5 truncate" style={{ color: "var(--theme-text-label)" }}>
+            {exp.meta}
+          </div>
+        </div>
+        {exp.current && (
+          <span
+            className="shrink-0 flex items-center gap-1.5 px-2 py-1 text-[9px] font-mono tracking-[0.2em]"
+            style={{ color: "var(--theme-text-bold)", border: "1px solid var(--theme-border)" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-green-500 blink" style={{ boxShadow: "0 0 6px rgba(74,222,128,0.8)" }} />
+            ACTIVE
+          </span>
+        )}
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-3">
-        <span className="text-xs font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
-          {exp.period}
-        </span>
-        <span style={{ color: "var(--theme-text-faint)" }}>//</span>
-        <span className="text-xs font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-dim)" }}>
-          {exp.company}
-        </span>
+      <h4 className="font-mono font-bold leading-snug mb-1.5" style={{ color: "var(--theme-text-bold)", fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)" }}>
+        {exp.title}
+      </h4>
+      <div className="text-[10px] font-mono tracking-[0.25em] tabular-nums mb-4" style={{ color: "var(--theme-text-dim)" }}>
+        {exp.period}
       </div>
 
-      <p className="text-sm font-mono leading-relaxed mb-4" style={{ color: "var(--theme-text-muted)" }}>
+      <p className="font-mono leading-relaxed mb-5" style={{ color: "var(--theme-text-muted)", fontSize: "13px" }}>
         {exp.description}
       </p>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5 mt-auto">
         {exp.tags.map((tag) => (
           <span
             key={tag}
-            className="text-[10px] font-mono tracking-[0.15em] px-2 py-1"
+            className="text-[9px] font-mono tracking-[0.15em] px-2 py-1"
             style={{ color: "var(--theme-text-dim)", border: "1px solid var(--theme-border-faint)" }}
           >
-            [ {tag} ]
+            {tag}
           </span>
         ))}
       </div>
@@ -71,7 +98,7 @@ function ExperienceEntry({ exp, index }: { exp: Experience; index: number }) {
         style={{ width: "5px", height: "5px", background: "var(--theme-dot-timeline)" }}
       />
       <div className="text-[10px] font-mono tracking-[0.3em] mb-2" style={{ color: "var(--theme-text-label)" }}>
-        T+ {stamp(exp.start)}
+        T+ {stamp(exp.start)}{exp.current ? " → NOW" : ""}
       </div>
       <ExperienceCard exp={exp} />
     </motion.div>
@@ -154,7 +181,7 @@ function HorizontalTimeline() {
                   return (
                     <div key={exp.company} className="absolute top-0" style={{ left: i * (CARD_W + GAP) }}>
                       <div className="text-[10px] font-mono tracking-[0.3em] h-4 mb-[7px] whitespace-nowrap" style={{ color: lit ? "var(--theme-text-bold)" : "var(--theme-text-faint)", transition: "color 300ms ease" }}>
-                        {lit ? <DecryptText text={`T+ ${stamp(exp.start)}`} trigger /> : `T+ ${stamp(exp.start)}`}
+                        {lit ? <DecryptText text={`T+ ${stamp(exp.start)}${exp.current ? " → NOW" : ""}`} trigger /> : `T+ ${stamp(exp.start)}`}
                       </div>
                       <div
                         style={{
@@ -180,6 +207,7 @@ function HorizontalTimeline() {
                   >
                     <ExperienceCard
                       exp={exp}
+                      lit={i <= active}
                       className="h-full"
                       style={{ borderColor: i === active ? "var(--theme-border)" : "var(--theme-border-faint)" }}
                     />
