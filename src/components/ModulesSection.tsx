@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import SectionLabel from "./SectionLabel";
 import DecryptText from "./DecryptText";
 
 
@@ -164,22 +165,10 @@ function CategoryCard({ category, index }: { category: typeof categories[0]; ind
 }
 
 export default function ModulesSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="modules" className="relative pt-24 pb-12 px-6 md:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-12"
-        >
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
-          <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_02 // SYS.SKILLS</span>
-        </motion.div>
+        <SectionLabel text="SEQ_02 // SYS.SKILLS" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {categories.map((cat, i) => (

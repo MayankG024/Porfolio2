@@ -9,6 +9,7 @@ const navItems = [
   { label: " SKILLS ", href: "#modules" },
   { label: " MY WORK", href: "#output" },
   { label: " EXPERIENCE ", href: "#logs" },
+  { label: " WRITINGS ", href: "#writings" },
 ];
 
 /* ── Shared icon-button style matching the theme toggle ── */

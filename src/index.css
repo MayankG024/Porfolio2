@@ -351,3 +351,152 @@ textarea,
 h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.7s ease, color 0.7s ease, border-color 0.7s ease, box-shadow 0.7s ease;
 }
+
+/* ── Upgrade: shared motion tokens + effects ── */
+:root {
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Hero portrait: photo revealed through a cursor spotlight (vars set from JS) */
+.ascii-portrait__photo {
+  --r: 0px;
+  --mx: 50%;
+  --my: 40%;
+  -webkit-mask-image: radial-gradient(circle at var(--mx) var(--my), #000 calc(var(--r) - 44px), transparent var(--r));
+  mask-image: radial-gradient(circle at var(--mx) var(--my), #000 calc(var(--r) - 44px), transparent var(--r));
+}
+.ascii-portrait:focus-visible {
+  outline: 1px solid var(--theme-corner);
+  outline-offset: 4px;
+}
+
+/* Press feedback for every button */
+button {
+  transition-property: background-color, color, border-color, box-shadow, transform;
+  transition-duration: 0.7s, 0.7s, 0.7s, 0.7s, 160ms;
+  transition-timing-function: ease, ease, ease, ease, var(--ease-out-strong);
+}
+button:active {
+  transform: scale(0.97);
+}
+
+/* Project media: B&W at rest, colour on attention */
+.project-media img {
+  filter: grayscale(1) contrast(1.05);
+  transform: scale(1);
+  transition: filter 450ms var(--ease-out-strong), transform 600ms var(--ease-out-strong);
+}
+.project-media[data-active="true"] img {
+  filter: grayscale(0) contrast(1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .project-media img {
+    filter: grayscale(0) contrast(1);
+    transform: scale(1.03);
+  }
+}
+.project-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, var(--theme-btn-hover) 48%, transparent 52%, transparent 100%);
+  transform: translateY(-100%);
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .project-media::after {
+    animation: scan-sweep 900ms var(--ease-in-out-strong) 1;
+  }
+}
+.project-media[data-active="true"]::after {
+  animation: scan-sweep 900ms var(--ease-in-out-strong) 1;
+}
+@keyframes scan-sweep {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(100%); opacity: 1; }
+}
+
+/* Section dividers: one-time light sweep when they enter view */
+.divider-scan {
+  position: relative;
+  height: 1px;
+  background: var(--theme-divider);
+  overflow: hidden;
+}
+.divider-scan::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--theme-text-mid), transparent);
+  transform: translateX(-100%);
+}
+.divider-scan[data-seen="true"]::after {
+  animation: divider-sweep 1.6s var(--ease-in-out-strong) 1 forwards;
+}
+@keyframes divider-sweep {
+  to { transform: translateX(560%); }
+}
+
+/* How-I-build: a single packet travelling the connector line */
+.packet-track {
+  position: relative;
+  height: 1px;
+  background-image: linear-gradient(90deg, var(--theme-border) 50%, transparent 50%);
+  background-size: 8px 1px;
+}
+.packet-track__dot {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: var(--theme-text-bold);
+  box-shadow: 0 0 8px var(--theme-text-mid);
+  animation: packet-run 7s linear infinite;
+  animation-play-state: var(--packet-state, running);
+}
+@keyframes packet-run {
+  0% { left: 0; opacity: 0; }
+  6% { opacity: 1; }
+  94% { opacity: 1; }
+  100% { left: calc(100% - 5px); opacity: 0; }
+}
+
+/* Writings rows */
+.writing-row {
+  transition: background-color 250ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .writing-row:hover {
+    background-color: var(--theme-card-hover);
+  }
+  .writing-row:hover .writing-row__arrow {
+    transform: translateX(4px);
+    color: var(--theme-text-bold);
+  }
+}
+.writing-row__arrow {
+  transition: transform 200ms var(--ease-out-strong), color 200ms ease;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--theme-corner);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .divider-scan::after,
+  .project-media::after,
+  .packet-track__dot,
+  .blink {
+    animation: none !important;
+  }
+  .packet-track__dot { display: none; }
+  .project-media img { transition: filter 200ms ease; transform: none !important; }
+}

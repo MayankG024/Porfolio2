@@ -71,7 +71,7 @@ export default function ContactSection() {
         >
           <div className="flex items-center gap-3 mb-12">
             <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-dot)" }} />
-            <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_06 // SYS.CONNECT</span>
+            <span className="text-[10px] tracking-[0.3em] font-mono" style={{ color: "var(--theme-text-label)" }}>SEQ_08 // SYS.CONNECT</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">

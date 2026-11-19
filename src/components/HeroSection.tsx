@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import SocialButtons from "./SocialButtons";
+import AsciiPortrait from "./AsciiPortrait";
 import { playHoverSound, playClickSound } from "@/lib/audio";
 import posthog from "posthog-js";
 
@@ -148,7 +149,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-12 w-full lg:w-[calc(200%+5rem)] mb-10"
+            className="flex flex-col gap-8 w-full mb-10"
           >
             <div className="flex flex-wrap gap-3">
               <button
@@ -211,8 +212,14 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Card section completely removed temporarily */}
-        <div className="w-full lg:w-auto" aria-hidden="true"></div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97, filter: "blur(6px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.23, 1, 0.32, 1] }}
+          className="w-full pb-16 lg:pb-0"
+        >
+          <AsciiPortrait />
+        </motion.div>
       </div>
 
       <div className="fixed bottom-6 md:bottom-10 right-6 md:right-8 lg:right-16 hidden md:flex flex-col items-end gap-5 z-50">

@@ -129,13 +129,13 @@ function GalaxyParticles({ scrollY, mouseX, mouseY, theme }: GalaxyProps) {
   const BASE_TILT = -0.32;
   const smoothRotY = useRef(0);
   const smoothRotX = useRef(BASE_TILT);
-  let elapsed = 0;
+  const elapsed = useRef(0);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
-    elapsed += delta;
+    elapsed.current += delta;
 
-    const targetRotY = elapsed * 0.018 + mouseX * 0.28;
+    const targetRotY = elapsed.current * 0.018 + mouseX * 0.28;
     const targetRotX = BASE_TILT + mouseY * 0.18;
 
     smoothRotY.current += (targetRotY - smoothRotY.current) * 0.06;
@@ -416,6 +416,7 @@ export default function GalaxyBackground({ scrollY, mouseX, mouseY, theme: propT
     <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
       <Canvas
         camera={{ position: [0, 0, 7.5], fov: 58 }}
+        dpr={[1, 1.5]}
         gl={{ antialias: false, alpha: true, preserveDrawingBuffer: true, failIfMajorPerformanceCaveat: false }}
         style={{ position: "absolute", inset: 0, background: "transparent" }}
         fallback={<FallbackBackground />}

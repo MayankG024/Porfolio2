@@ -1,4 +1,5 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { MotionConfig, useInView } from "framer-motion";
 import { ThemeProvider } from "@/lib/ThemeContext";
 import GalaxyBackground from "@/components/GalaxyBackground";
 import Navbar from "@/components/Navbar";
@@ -11,11 +12,36 @@ const QuickStatsSection = lazy(() => import("@/components/QuickStatsSection"));
 const ModulesSection = lazy(() => import("@/components/ModulesSection"));
 const OutputSection = lazy(() => import("@/components/OutputSection"));
 const LogsSection = lazy(() => import("@/components/LogsSection"));
+const ProcessSection = lazy(() => import("@/components/ProcessSection"));
+const WritingsSection = lazy(() => import("@/components/WritingsSection"));
 const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
 
+// Hairline section divider; a light sweeps across it once when it scrolls into view.
+function Divider() {
+  const ref = useRef(null);
+  const seen = useInView(ref, { once: true, margin: "-40px" });
+  return <div ref={ref} data-seen={seen} className="divider-scan mx-6 md:mx-8 lg:mx-16" />;
+}
+
+let greeted = false;
+function greetConsole() {
+  if (greeted) return;
+  greeted = true;
+  const art = [
+    "   /\\",
+    "  /  \\   hello, fellow engineer.",
+    " |    |   you found the console. source: https://github.com/MayankG024",
+    " |    |   say hi: mayankynr24@gmail.com",
+    "/|_||_|\\",
+  ].join("\n");
+  console.log(`%c${art}`, "font-family: monospace; color: #9a9a9a;");
+}
+
 function AppContent() {
+  useEffect(greetConsole, []);
+
   const [scrollY, setScrollY] = useState(0);
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
@@ -61,40 +87,33 @@ function AppContent() {
           <HeroSection />
 
           <Suspense fallback={null}>
-            <div
-              className="mx-6 md:mx-8 lg:mx-16"
-              style={{ height: "1px", background: "var(--theme-divider)" }}
-            />
+            <Divider />
 
             <ModulesSection />
 
             <QuickStatsSection />
 
-            <div
-              className="mx-6 md:mx-8 lg:mx-16"
-              style={{ height: "1px", background: "var(--theme-divider)" }}
-            />
+            <Divider />
 
             <OutputSection />
 
-            <div
-              className="mx-6 md:mx-8 lg:mx-16"
-              style={{ height: "1px", background: "var(--theme-divider)" }}
-            />
+            <Divider />
+
+            <ProcessSection />
+
+            <Divider />
 
             <LogsSection />
 
-            <div
-              className="mx-6 md:mx-8 lg:mx-16"
-              style={{ height: "1px", background: "var(--theme-divider)" }}
-            />
+            <Divider />
 
             <TestimonialsSection />
 
-            <div
-              className="mx-6 md:mx-8 lg:mx-16"
-              style={{ height: "1px", background: "var(--theme-divider)" }}
-            />
+            <Divider />
+
+            <WritingsSection />
+
+            <Divider />
 
             <ContactSection />
           </Suspense>
@@ -111,7 +130,9 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <MotionConfig reducedMotion="user">
+        <AppContent />
+      </MotionConfig>
     </ThemeProvider>
   );
 }

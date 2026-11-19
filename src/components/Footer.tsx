@@ -1,4 +1,28 @@
+import { useEffect, useRef } from "react";
 import SocialButtons from "./SocialButtons";
+
+// Session clock: time since the visitor landed. Writes text directly so it never re-renders.
+function Telemetry() {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const t0 = performance.timeOrigin;
+    const pad = (n: number) => String(n).padStart(2, "0");
+    const tick = () => {
+      const s = Math.floor((Date.now() - t0) / 1000);
+      if (ref.current) ref.current.textContent = `T+${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
+    };
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2 justify-center md:justify-end text-[10px] font-mono tracking-[0.2em]" style={{ color: "var(--theme-text-label)" }}>
+      <span ref={ref} className="tabular-nums" style={{ color: "var(--theme-text-mid)" }}>T+00:00:00</span>
+      <span>SINCE_LANDING</span>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
@@ -24,6 +48,8 @@ export default function Footer() {
         <div className="flex justify-center">
           <SocialButtons />
         </div>
+
+        <Telemetry />
       </div>
     </footer>
   );
